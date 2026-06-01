@@ -9,7 +9,14 @@ gestion = {agregar,modifcar, eliminar)
 - gestion doctores
 - - modificar tiempos de consulta
 - gestion CitasMedicas
-- gestion resultadoCitaMedica 
+- gestion resultadoCitaMedica (
 - crear historial medico de pacientes
 - revisar datos paciente
 - 
+
+
+## meter en trello 
+
+- MR (para filtrar info nomas) 
+- diseño app (essquema app) 
+- separar tareas
