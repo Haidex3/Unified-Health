@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.develop.myapplication.di.DataBaseModule
 import com.develop.myapplication.ui.model.Paciente
 import kotlinx.coroutines.launch
-
+/*
 // 🔹 Estado simple
 data class PacienteUiState(
     val isLoading: Boolean = false,
@@ -66,4 +66,4 @@ class PacienteViewModel : ViewModel() {
             error = null
         )
     }
-}
+}*/

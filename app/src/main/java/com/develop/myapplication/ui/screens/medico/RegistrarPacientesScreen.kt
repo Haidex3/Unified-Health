@@ -15,10 +15,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.develop.myapplication.model.Paciente
-import com.develop.myapplication.network.NetworkModule
 import kotlinx.coroutines.launch
-
+/*
 @Composable
 fun RegistrarPacienteScreen() {
 
@@ -68,4 +66,4 @@ fun RegistrarPacienteScreen() {
             Text("Guardar")
         }
     }
-}
+}*/

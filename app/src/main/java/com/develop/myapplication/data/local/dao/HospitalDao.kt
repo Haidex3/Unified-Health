@@ -3,6 +3,7 @@ package com.develop.myapplication.data.local.dao
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.develop.myapplication.data.local.entity.HospitalEntity
 import kotlinx.coroutines.flow.Flow
@@ -26,10 +27,11 @@ interface HospitalDao {
     suspend fun buscarPorNombre(nombreBusqueda: String): HospitalEntity
 
     //Inserta un Hospital
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertarTodos(vararg usuarios: HospitalEntity)
 
     //Borra un Hospital
     @Delete
     suspend fun borrar(usuario: HospitalEntity)
+
 }

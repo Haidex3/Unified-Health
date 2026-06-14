@@ -14,9 +14,9 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
+/*
 @HiltViewModel
-class HospitalFormViewModel @Inject constructor(
+class FormViewModel @Inject constructor(
     private val hospitalRepository: HospitalRepository
 ) : ViewModel() {
     var nombre by mutableStateOf("")
@@ -60,47 +60,52 @@ class HospitalFormViewModel @Inject constructor(
 }
 
 
-
 /*
-data class HospitalUiState(
+data class DoctorUiState(
     val isLoading: Boolean = false,
     val mensaje: String? = null,
     val error: String? = null
 )
 
-class HospitalViewModel : ViewModel() {
+class MedicoViewModel : ViewModel() {
 
-    var uiState by mutableStateOf(HospitalUiState())
+    var uiState by mutableStateOf(DoctorUiState())
         private set
 
-    fun registrarHospital(
+    fun registrarMedico(
         nombre: String,
         correo: String,
-        ubicacion: String
+        password: String,
+        rut: String,
+        celular: String,
+        hospitalId: Int
     ) {
         viewModelScope.launch {
 
             uiState = uiState.copy(isLoading = true)
 
             try {
-                val hospital = Hospital(
+                val medico = Medico(
                     nombre = nombre,
                     correo = correo,
-                    ubicacion = ubicacion
+                    password = password,
+                    rut = rut,
+                    celular = celular,
+                    hospital_id = hospitalId
                 )
 
-                // 🔥 llamada API
-                NetworkModule.api.createHospital(hospital)
+
+                DataBaseModule.api.createDoctor(medico)
 
                 uiState = uiState.copy(
                     isLoading = false,
-                    mensaje = "Hospital creado correctamente"
+                    mensaje = "Doctor creado correctamente"
                 )
 
             } catch (e: Exception) {
                 uiState = uiState.copy(
                     isLoading = false,
-                    error = "Error al crear hospital"
+                    error = "Error al crear doctor"
                 )
             }
         }

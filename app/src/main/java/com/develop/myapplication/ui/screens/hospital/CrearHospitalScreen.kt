@@ -1,19 +1,30 @@
 package com.develop.myapplication.ui.screens.hospital
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Button
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
-import com.develop.myapplication.ui.model.Hospital
-import com.develop.myapplication.network.NetworkModule
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import com.develop.myapplication.ui.components.HospitalFormViewModel
 import kotlinx.coroutines.launch
 
+@Composable
+fun CrearHospitalScreen(formViewModel: HospitalFormViewModel = hiltViewModel(), navController:
+NavHostController
+) {
+    val scope = rememberCoroutineScope()
+    Button(
+        onClick = {
+            scope.launch {
+                formViewModel.insertarHospital()
+            }
+        },
+    ) {
+        Text("Hola")
+    }
+}
+/*
 @Composable
 fun CrearHospitalScreen() {
 
@@ -39,3 +50,4 @@ fun CrearHospitalScreen() {
         }
     }
 }
+ */
