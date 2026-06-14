@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.develop.myapplication.ui.screens.HomeScreen
 import kotlinx.serialization.Serializable
+import com.develop.myapplication.ui.screens.HomeScreen
 
 @Serializable
 object Home
