@@ -1,13 +1,15 @@
 package com.develop.myapplication.ui.components
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.develop.myapplication.di.DataBaseModule
-import com.develop.myapplication.ui.model.Paciente
-import kotlinx.coroutines.launch
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+
+@HiltViewModel
+class PacienteViewModel @Inject constructor(
+    private val pacienteRepository: PacienteRepository
+)
+{
+
+}
 /*
 // 🔹 Estado simple
 data class PacienteUiState(

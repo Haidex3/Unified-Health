@@ -17,7 +17,9 @@ class HospitalRepositoryImpl @Inject constructor(
     override fun obtenerTodosHospitales(): Flow<List<Hospital>> {
         return database.hospitalDao().obtenerTodos().map { it.map { it.toDomain() } }
         }
-
+    override suspend fun insertarHospital(hospital: Hospital){
+        database.hospitalDao().insertarTodos(hospital.toEntity())
+    }
     override suspend fun obtenerPorId(id: Int): Hospital? {
         return database.hospitalDao().obtenerPorId(id)?.toDomain()
     }
@@ -27,7 +29,7 @@ class HospitalRepositoryImpl @Inject constructor(
     override suspend fun buscarPorNombre(nombreBusqueda: String): Hospital? {
         return database.hospitalDao().buscarPorNombre(nombreBusqueda)?.toDomain()
     }
-    override suspend fun insertarHospital(hospital: Hospital) {
+    override suspend fun insertarHospitalBackend(hospital: Hospital) {
         val hospitalApi = apiService.createHospital(hospital.toDto())
         database.hospitalDao().insertarTodos(hospitalApi.toEntity())
     }
