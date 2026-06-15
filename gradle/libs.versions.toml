@@ -11,7 +11,7 @@ composeBom = "2026.05.01"
 
 nav-version = "2.9.8"
 kotlin-serialization = "1.11.0"
-plugin-serialization = "2.4.0"
+plugin-serialization = "2.3.0"
 
 version-hilt = "2.59.2"
 ksp = "2.3.6"

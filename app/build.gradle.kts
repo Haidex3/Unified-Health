@@ -4,6 +4,8 @@ plugins {
 
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt.android)
+
+    alias(libs.plugins.plugin.serialization)
 }
 
 android {
@@ -63,7 +65,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
     implementation(libs.okhttp)
-
+    implementation(libs.kotlin.serialization)
 
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))

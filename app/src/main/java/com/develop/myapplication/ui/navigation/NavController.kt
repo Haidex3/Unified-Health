@@ -7,12 +7,15 @@ import androidx.navigation.compose.rememberNavController
 import kotlinx.serialization.Serializable
 import com.develop.myapplication.ui.screens.HomeScreen
 import com.develop.myapplication.ui.screens.hospital.CrearHospitalScreen
+import com.develop.myapplication.ui.screens.hospital.VerHospitalesScreen
 
 @Serializable
 object Home
 
 @Serializable
 object CrearHospital
+@Serializable
+object VerHospitales
 
 @Composable
 fun Navigation(){
@@ -25,6 +28,10 @@ fun Navigation(){
         }
         composable<CrearHospital>{
             CrearHospitalScreen(navController = navController)
+        }
+        composable<VerHospitales> {
+            VerHospitalesScreen()
+
         }
     }
 }

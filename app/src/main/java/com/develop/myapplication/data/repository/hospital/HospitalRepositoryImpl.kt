@@ -9,18 +9,15 @@ import com.develop.myapplication.ui.model.Hospital
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 class HospitalRepositoryImpl @Inject constructor(
     private val database: AppDatabase,
     private val apiService: HospitalApiService
 ): HospitalRepository {
     override fun obtenerTodosHospitales(): Flow<List<Hospital>> {
-        return database.hospitalDao().obtenerTodos().map { listaEntities ->
-            listaEntities.map { hospitalEntity -> hospitalEntity.toDomain() }
+        return database.hospitalDao().obtenerTodos().map { it.map { it.toDomain() } }
         }
-    }
+
     override suspend fun obtenerPorId(id: Int): Hospital? {
         return database.hospitalDao().obtenerPorId(id)?.toDomain()
     }
@@ -31,10 +28,11 @@ class HospitalRepositoryImpl @Inject constructor(
         return database.hospitalDao().buscarPorNombre(nombreBusqueda)?.toDomain()
     }
     override suspend fun insertarHospital(hospital: Hospital) {
-        database.hospitalDao().insertarTodos(hospital.toEntity())
+        val hospitalApi = apiService.createHospital(hospital.toDto())
+        database.hospitalDao().insertarTodos(hospitalApi.toEntity())
     }
     override suspend fun borrarHospital(hospital: Hospital) {
-        database.hospitalDao().borrar(hospital.toEntity())
+        return database.hospitalDao().borrar(hospital.toEntity())
     }
     override suspend fun sincronizarHospitales() {
         try {
@@ -63,7 +61,6 @@ fun Hospital.toEntity() = HospitalEntity(
 )
 
 fun Hospital.toDto(): HospitalDto {
-    val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     return HospitalDto(
         id = this.id,
         nombre = this.nombre,
@@ -74,8 +71,6 @@ fun Hospital.toDto(): HospitalDto {
 }
 
 fun HospitalDto.toEntity(): HospitalEntity {
-    val parser =
-        SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
     return HospitalEntity(
         id = this.id,
