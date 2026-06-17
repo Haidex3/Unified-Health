@@ -24,7 +24,7 @@ class HospitalFormViewModel @Inject constructor(
     var telefono by mutableStateOf("")
     var ubicacion by mutableStateOf("")
 
-    val hospitales: StateFlow<List<Hospital>> = hospitalRepository.obtenerTodosHospitales()
+    val hospitales: StateFlow<List<Hospital>> = hospitalRepository.obtener TodosHospitales()
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000), // Se apaga 5s después de cerrar la pantalla
@@ -58,58 +58,3 @@ class HospitalFormViewModel @Inject constructor(
         ubicacion = ""
     }
 }
-
-
-
-/*
-data class HospitalUiState(
-    val isLoading: Boolean = false,
-    val mensaje: String? = null,
-    val error: String? = null
-)
-
-class HospitalViewModel : ViewModel() {
-
-    var uiState by mutableStateOf(HospitalUiState())
-        private set
-
-    fun registrarHospital(
-        nombre: String,
-        correo: String,
-        ubicacion: String
-    ) {
-        viewModelScope.launch {
-
-            uiState = uiState.copy(isLoading = true)
-
-            try {
-                val hospital = Hospital(
-                    nombre = nombre,
-                    correo = correo,
-                    ubicacion = ubicacion
-                )
-
-                // 🔥 llamada API
-                NetworkModule.api.createHospital(hospital)
-
-                uiState = uiState.copy(
-                    isLoading = false,
-                    mensaje = "Hospital creado correctamente"
-                )
-
-            } catch (e: Exception) {
-                uiState = uiState.copy(
-                    isLoading = false,
-                    error = "Error al crear hospital"
-                )
-            }
-        }
-    }
-
-    fun limpiarMensaje() {
-        uiState = uiState.copy(
-            mensaje = null,
-            error = null
-        )
-    }
-}*/
