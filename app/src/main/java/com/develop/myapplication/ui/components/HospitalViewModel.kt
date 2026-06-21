@@ -41,13 +41,13 @@ class HospitalFormViewModel @Inject constructor(
     fun insertarHospital() {
         viewModelScope.launch {
             val nuevoHospital = Hospital(
-                id = 0, // Room lo autogenera
+                id = 0,
                 nombre = nombre,
                 correo = correo,
                 telefono = telefono.toInt(),
                 ubicacion = ubicacion
             )
-            hospitalRepository.insertarHospital(nuevoHospital)
+            hospitalRepository.insertarHospitalBackend(nuevoHospital)
             resetForm()
         }
     }
