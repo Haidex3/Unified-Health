@@ -3,6 +3,7 @@ package com.develop.myapplication.data.repository.hospital
 import android.util.Log
 import com.develop.myapplication.data.local.AppDatabase
 import com.develop.myapplication.data.local.entity.HospitalEntity
+import com.develop.myapplication.data.remote.dto.HospitalCreateDto
 import com.develop.myapplication.data.remote.dto.HospitalDto
 import com.develop.myapplication.data.remote.service.HospitalApiService
 import com.develop.myapplication.ui.model.Hospital
@@ -30,7 +31,7 @@ class HospitalRepositoryImpl @Inject constructor(
         return database.hospitalDao().buscarPorNombre(nombreBusqueda)?.toDomain()
     }
     override suspend fun insertarHospitalBackend(hospital: Hospital) {
-        val hospitalApi = apiService.createHospital(hospital.toDto())
+        val hospitalApi = apiService.createHospital(hospital.toCreateDto())
         database.hospitalDao().insertarTodos(hospitalApi.toEntity())
     }
     override suspend fun borrarHospital(hospital: Hospital) {
@@ -65,6 +66,15 @@ fun Hospital.toEntity() = HospitalEntity(
 fun Hospital.toDto(): HospitalDto {
     return HospitalDto(
         id = this.id,
+        nombre = this.nombre,
+        correo = this.correo,
+        telefono = this.telefono,
+        ubicacion = this.ubicacion
+    )
+}
+
+fun Hospital.toCreateDto(): HospitalCreateDto {
+    return HospitalCreateDto(
         nombre = this.nombre,
         correo = this.correo,
         telefono = this.telefono,
