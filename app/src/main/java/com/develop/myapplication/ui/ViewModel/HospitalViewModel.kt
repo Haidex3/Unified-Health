@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.develop.myapplication.data.remote.dto.HospitalDto
 import com.develop.myapplication.data.remote.service.HospitalApiService
 import dagger.hilt.android.lifecycle.HiltViewModel
-import jakarta.inject.Inject
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 
 // 🔹 Estado simple
