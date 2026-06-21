@@ -24,7 +24,7 @@ class HospitalFormViewModel @Inject constructor(
     var telefono by mutableStateOf("")
     var ubicacion by mutableStateOf("")
 
-    val hospitales: StateFlow<List<Hospital>> = hospitalRepository.obtener TodosHospitales()
+    val hospitales: StateFlow<List<Hospital>> = hospitalRepository.obtenerTodosHospitales()
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000), // Se apaga 5s después de cerrar la pantalla

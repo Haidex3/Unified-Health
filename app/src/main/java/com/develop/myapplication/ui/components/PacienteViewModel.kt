@@ -1,5 +1,5 @@
 package com.develop.myapplication.ui.components
-
+/*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -10,7 +10,9 @@ class PacienteViewModel @Inject constructor(
 {
 
 }
-/*
+
+
+
 // 🔹 Estado simple
 data class PacienteUiState(
     val isLoading: Boolean = false,
