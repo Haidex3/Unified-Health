@@ -32,6 +32,7 @@ class HospitalViewModel : ViewModel() {
 
             try {
                 val hospital = Hospital(
+                    id = null,
                     nombre = nombre,
                     correo = correo,
                     telefono = telefono,
