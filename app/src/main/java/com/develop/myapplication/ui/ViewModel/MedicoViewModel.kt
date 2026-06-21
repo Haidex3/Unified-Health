@@ -5,28 +5,34 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.develop.myapplication.di.NetworkModule
-import com.develop.myapplication.model.Doctor
-import com.develop.myapplication.network.NetworkModule
+import com.develop.myapplication.data.remote.dto.MedicoDto
+import com.develop.myapplication.data.remote.service.MedicoApiService
+import dagger.hilt.android.lifecycle.HiltViewModel
+import jakarta.inject.Inject
 import kotlinx.coroutines.launch
 
-data class DoctorUiState(
+
+
+data class MedicoUiState(
     val isLoading: Boolean = false,
     val mensaje: String? = null,
     val error: String? = null
 )
 
-class DoctorViewModel : ViewModel() {
+@HiltViewModel
+class MedicoViewModel @Inject constructor(
+    private val medicoRepository: MedicoApiService
+): ViewModel() {
 
-    var uiState by mutableStateOf(DoctorUiState())
+    var uiState by mutableStateOf(MedicoUiState())
         private set
 
-    fun registrarDoctor(
+    fun registrarMedico(
         nombre: String,
         correo: String,
-        password: String,
         rut: String,
-        celular: String,
+        password: String,
+        celular: Int,
         hospitalId: Int
     ) {
         viewModelScope.launch {
@@ -34,36 +40,31 @@ class DoctorViewModel : ViewModel() {
             uiState = uiState.copy(isLoading = true)
 
             try {
-                val doctor = Doctor(
+                val medico = MedicoDto(
                     nombre = nombre,
                     correo = correo,
-                    password = password,
                     rut = rut,
+                    contrasena = password,
                     celular = celular,
-                    hospital_id = hospitalId
+                    hospitalId = hospitalId
                 )
-
-
-                NetworkModule.api.createDoctor(doctor)
+                medicoRepository.createMedico(medico)
 
                 uiState = uiState.copy(
                     isLoading = false,
-                    mensaje = "Doctor creado correctamente"
+                    mensaje = "Medico creado correctamente"
                 )
 
             } catch (e: Exception) {
                 uiState = uiState.copy(
                     isLoading = false,
-                    error = "Error al crear doctor"
+                    error = "Error al crear medico"
                 )
             }
         }
     }
 
     fun limpiarMensaje() {
-        uiState = uiState.copy(
-            mensaje = null,
-            error = null
-        )
+        uiState = uiState.copy(mensaje = null, error = null)
     }
 }

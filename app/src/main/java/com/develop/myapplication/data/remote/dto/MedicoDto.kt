@@ -6,6 +6,8 @@ data class MedicoDto(
     @SerializedName("id") val id: Int? = null,
     @SerializedName("nombre") val nombre: String,
     @SerializedName("correo") val correo: String,
-    @SerializedName("telefono") val telefono: String,
-    @SerializedName("ubicacion") val ubicacion: String
+    @SerializedName("RUT") val rut: String,
+    @SerializedName("contraseña") val contrasena: String,
+    @SerializedName("celular") val celular: Int,
+    @SerializedName("hospital_id") val hospitalId: Int
 )

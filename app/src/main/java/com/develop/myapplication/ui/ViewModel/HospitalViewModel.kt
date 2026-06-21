@@ -1,12 +1,14 @@
 package com.develop.myapplication.ui.ViewModel
 
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.getValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.develop.myapplication.di.NetworkModule
-import com.develop.myapplication.ui.model.Hospital
+import com.develop.myapplication.data.remote.dto.HospitalDto
+import com.develop.myapplication.data.remote.service.HospitalApiService
+import dagger.hilt.android.lifecycle.HiltViewModel
+import jakarta.inject.Inject
 import kotlinx.coroutines.launch
 
 // 🔹 Estado simple
@@ -16,14 +18,19 @@ data class HospitalUiState(
     val error: String? = null
 )
 
-class HospitalViewModel : ViewModel() {
+@HiltViewModel
+class HospitalViewModel @Inject constructor(
+    private val hospitalRepository: HospitalApiService
+) : ViewModel() {
 
     var uiState by mutableStateOf(HospitalUiState())
         private set
 
+
     fun registrarHospital(
         nombre: String,
         correo: String,
+        telefono: String,
         ubicacion: String
     ) {
         viewModelScope.launch {
@@ -31,16 +38,14 @@ class HospitalViewModel : ViewModel() {
             uiState = uiState.copy(isLoading = true)
 
             try {
-                val hospital = Hospital(
-                    id = null,
+                val hospital = HospitalDto(
                     nombre = nombre,
                     correo = correo,
                     telefono = telefono,
-                    ubicacion = ubicacion
+                    ubicacion = ubicacion,
                 )
 
-                // 🔥 llamada API
-                NetworkModule.api.createHospital(hospital)
+                    hospitalRepository.createHospital(hospital)
 
                 uiState = uiState.copy(
                     isLoading = false,
