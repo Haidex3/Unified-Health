@@ -11,7 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 
-// 🔹 Estado simple
+
 data class HospitalUiState(
     val isLoading: Boolean = false,
     val mensaje: String? = null,
