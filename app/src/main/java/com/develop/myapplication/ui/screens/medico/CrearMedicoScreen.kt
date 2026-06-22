@@ -16,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import com.develop.myapplication.di.DataBaseModule
 import com.develop.myapplication.ui.model.Medico
 import kotlinx.coroutines.launch
-/*
 @Composable
 fun CrearMedicoScreen() {
     var nombre by remember { mutableStateOf("") }
@@ -44,4 +43,4 @@ fun CrearMedicoScreen() {
             }
         }) { Text("Guardar Doctor") }
     }
-}*/
+}
