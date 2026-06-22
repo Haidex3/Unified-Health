@@ -14,16 +14,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 /*pagina 6 Retrofit*/
 @Module
 @InstallIn(SingletonComponent::class)
-object NetworkModule {
-        @Provides
-        @Singleton
-        fun provideRetrofit(): Retrofit {
-            return Retrofit.Builder()
-                .baseUrl("http://172.20.10.13:8000/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-        }
-
+object NetworkModule{
+    @Provides
+    fun provideRetrofit(): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl("http://192.168.0.2:8000/api/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
         @Provides
         @Singleton
         fun provideHospitalApiService(retrofit: Retrofit): HospitalApiService {
@@ -41,4 +39,4 @@ object NetworkModule {
         fun providePacienteApiService(retrofit: Retrofit): PacienteApiService {
             return retrofit.create(PacienteApiService::class.java)
         }
-}
+    }
