@@ -17,7 +17,7 @@ class HospitalRepositoryImpl @Inject constructor(
 ): HospitalRepository {
     override fun obtenerTodosHospitales(): Flow<List<Hospital>> {
         return database.hospitalDao().obtenerTodos().map { it.map { it.toDomain() } }
-        }
+    }
     override suspend fun insertarHospital(hospital: Hospital){
         database.hospitalDao().insertarTodos(hospital.toEntity())
     }
