@@ -1,5 +1,5 @@
 package com.develop.myapplication.ui.screens.medico
-
+/*
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -43,4 +43,4 @@ fun CrearMedicoScreen() {
             }
         }) { Text("Guardar Doctor") }
     }
-}
+}*/

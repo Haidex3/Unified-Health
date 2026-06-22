@@ -1,5 +1,5 @@
 package com.develop.myapplication.ui.screens.medico
-
+/*
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -69,3 +69,4 @@ fun RegistrarPacienteScreen() {
         }
     }
 }
+*/
