@@ -22,7 +22,7 @@ fun Navigation(){
     val navController = rememberNavController()
 
 
-    NavHost(navController = navController, startDestination = CrearHospital){
+    NavHost(navController = navController, startDestination = Home){
         composable<Home>{
             HomeScreen(navController = navController)
         }
