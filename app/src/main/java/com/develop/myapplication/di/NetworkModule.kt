@@ -15,8 +15,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-    object NetworkModule {
-
         @Provides
         @Singleton
         fun provideRetrofit(): Retrofit {
@@ -44,5 +42,4 @@ object NetworkModule {
         fun providePacienteApiService(retrofit: Retrofit): PacienteApiService {
             return retrofit.create(PacienteApiService::class.java)
         }
-    }
 }

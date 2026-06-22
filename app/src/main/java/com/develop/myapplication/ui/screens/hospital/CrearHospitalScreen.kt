@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.develop.myapplication.ui.components.HospitalFormViewModel
+import com.develop.myapplication.ui.ViewModel.HospitalFormViewModel
 import com.develop.myapplication.ui.navigation.VerHospitales
 import kotlinx.coroutines.launch
 
