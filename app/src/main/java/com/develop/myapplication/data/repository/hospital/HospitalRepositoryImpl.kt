@@ -31,9 +31,13 @@ class HospitalRepositoryImpl @Inject constructor(
         return database.hospitalDao().buscarPorNombre(nombreBusqueda)?.toDomain()
     }
     override suspend fun insertarHospitalBackend(hospital: Hospital) {
-        val hospitalApi = apiService.createHospital(hospital.toCreateDto())
-        database.hospitalDao().insertarTodos(hospitalApi.toEntity())
-    }
+        try {
+            val hospitalApi = apiService.createHospital(hospital.toCreateDto())
+            database.hospitalDao().insertarTodos(hospitalApi.toEntity())
+        }catch (e: Exception){
+            Log.e("Fallo","Error al conectar con la base de datos."+e.message,e)
+            }
+        }
     override suspend fun borrarHospital(hospital: Hospital) {
         return database.hospitalDao().borrar(hospital.toEntity())
     }

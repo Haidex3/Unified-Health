@@ -30,6 +30,7 @@ class HospitalFormViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(5000), // Se apaga 5s después de cerrar la pantalla
             initialValue = emptyList()
         )
+    /*
     init {
         actualizarDatos()
     }
@@ -37,8 +38,10 @@ class HospitalFormViewModel @Inject constructor(
         viewModelScope.launch {
             hospitalRepository.sincronizarHospitales()
         }
-    }
+    }*/
     fun insertarHospital() {
+        if (telefono.isBlank()) return
+
         viewModelScope.launch {
             val nuevoHospital = Hospital(
                 id = 0,
