@@ -10,9 +10,6 @@ import com.develop.myapplication.data.remote.service.MedicoApiService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.launch
-
-
-
 data class MedicoUiState(
     val isLoading: Boolean = false,
     val mensaje: String? = null,
@@ -23,10 +20,8 @@ data class MedicoUiState(
 class MedicoViewModel @Inject constructor(
     private val medicoRepository: MedicoApiService
 ): ViewModel() {
-
     var uiState by mutableStateOf(MedicoUiState())
         private set
-
     fun registrarMedico(
         nombre: String,
         correo: String,
