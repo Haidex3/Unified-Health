@@ -1,22 +1,15 @@
 # Unified-Health
 Proyecto de ramo "Desarrollo de aplicaciones moviles en android"
 
-gestion = {agregar,modifcar, eliminar) 
+Descripción
 
-# lista general epecificacion de requisitos
-- gestion hospitales 
-- gestion pacientes
-- gestion doctores
-- modificar tiempos de consulta
-- gestion CitasMedicas
-- gestion resultadoCitaMedica (
-- crear historial medico de pacientes
-- revisar datos paciente
-  
+proyecto pensado para gestionar las multiples informaciones medicas de los hospitales y sus pacientes para facilitar el acceso de la informacion. 
+
+Instalación
 
 
-## meter en trello 
 
-- MR (para filtrar info nomas) 
-- diseño app (essquema app) 
-- separar tareas
+Instrucciones de uso
+Contribución
+Estructura de carpetas
+Equipo (desarrolladores con nombre, apellido y su usuario de GitHub)

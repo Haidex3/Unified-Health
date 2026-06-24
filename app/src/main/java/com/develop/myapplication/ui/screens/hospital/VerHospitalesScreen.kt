@@ -22,6 +22,7 @@ import com.develop.myapplication.ui.ViewModel.HospitalFormViewModel
 @Composable
 fun VerHospitalesScreen(formViewModel: HospitalFormViewModel = hiltViewModel()) {
     val hospitales by formViewModel.hospitales.collectAsStateWithLifecycle()
+
     Scaffold() {
             innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
@@ -33,7 +34,6 @@ fun VerHospitalesScreen(formViewModel: HospitalFormViewModel = hiltViewModel()) 
             ) {
                 items(hospitales) {
                     Card(
-
                     ) {
                         Column(
                             modifier = Modifier.fillMaxWidth().padding(vertical = 20.dp),
@@ -49,4 +49,7 @@ fun VerHospitalesScreen(formViewModel: HospitalFormViewModel = hiltViewModel()) 
             }
         }
     }
+
+
+
 }
