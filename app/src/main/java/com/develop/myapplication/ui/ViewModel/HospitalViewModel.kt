@@ -1,5 +1,6 @@
 package com.develop.myapplication.ui.ViewModel
 
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -12,6 +13,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import java.lang.Thread.sleep
 import javax.inject.Inject
 
 
@@ -23,22 +25,24 @@ class HospitalFormViewModel @Inject constructor(
     var correo by mutableStateOf("")
     var telefono by mutableStateOf("")
     var ubicacion by mutableStateOf("")
-
     val hospitales: StateFlow<List<Hospital>> = hospitalRepository.obtenerTodosHospitales()
         .stateIn(
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000), // Se apaga 5s después de cerrar la pantalla
+            started = SharingStarted.WhileSubscribed(5000),
             initialValue = emptyList()
         )
+
     init {
         actualizarDatos()
     }
     fun actualizarDatos(){
-        viewModelScope.launch {
-            hospitalRepository.sincronizarHospitales()
-        }
+            viewModelScope.launch {
+                hospitalRepository.sincronizarHospitales()
+            }
     }
     fun insertarHospital() {
+        if (telefono.isBlank()) return
+
         viewModelScope.launch {
             val nuevoHospital = Hospital(
                 id = 0,
@@ -51,6 +55,7 @@ class HospitalFormViewModel @Inject constructor(
             resetForm()
         }
     }
+
     private fun resetForm() {
         nombre = ""
         correo = ""

@@ -7,19 +7,21 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object NetworkModule{
-    @Provides
-    fun provideRetrofit(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl("http://192.168.0.2:8000/api/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-    @Provides
-    fun provideHospitalApiService(retrofit: Retrofit): HospitalApiService {
-        return retrofit.create(HospitalApiService::class.java)
-    }
+object NetworkModule {
+        @Provides
+        @Singleton
+        fun provideRetrofit(): Retrofit {
+            return Retrofit.Builder()
+                .baseUrl("http://172.20.10.13:8000/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        }
+        @Provides
+        fun provideHospitalApiService(retrofit: Retrofit): HospitalApiService{
+            return retrofit.create(HospitalApiService::class.java)
+        }
 }

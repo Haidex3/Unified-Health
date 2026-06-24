@@ -1,5 +1,6 @@
 package com.develop.myapplication.data.repository.hospital
 
+import androidx.compose.runtime.Composable
 import com.develop.myapplication.data.local.entity.HospitalEntity
 import com.develop.myapplication.ui.model.Hospital
 import kotlinx.coroutines.flow.Flow

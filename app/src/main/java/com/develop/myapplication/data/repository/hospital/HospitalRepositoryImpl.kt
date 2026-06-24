@@ -31,20 +31,25 @@ class HospitalRepositoryImpl @Inject constructor(
         return database.hospitalDao().buscarPorNombre(nombreBusqueda)?.toDomain()
     }
     override suspend fun insertarHospitalBackend(hospital: Hospital) {
-        val hospitalApi = apiService.createHospital(hospital.toCreateDto())
-        database.hospitalDao().insertarTodos(hospitalApi.toEntity())
-    }
+        try {
+            val hospitalApi = apiService.createHospital(hospital.toCreateDto())
+            database.hospitalDao().insertarTodos(hospitalApi.toEntity())
+        }catch (e: Exception){
+            Log.e("Fallo","Error al conectar con la base de datos."+e.message,e)
+            }
+        }
     override suspend fun borrarHospital(hospital: Hospital) {
         return database.hospitalDao().borrar(hospital.toEntity())
     }
+
     override suspend fun sincronizarHospitales() {
         try {
-            val hospital = apiService.getHospital()
-            database.hospitalDao().insertarTodos(*hospital.map { it.toEntity() }.toTypedArray())
+            val hospitalesRemotos = apiService.getHospital()
+            val entidades = hospitalesRemotos.map { it.toEntity() }
+            database.hospitalDao().refrescarHospitales(entidades)
         } catch (e: Exception) {
             Log.e("HospitalRepository", "Error al sincronizar Hospitales desde la API " + e.message, e)
         }
-
     }
 }
 fun HospitalEntity.toDomain() = Hospital(
