@@ -30,7 +30,10 @@ fun CrearHospitalScreen(
     Scaffold(modifier = Modifier.fillMaxSize(),
         bottomBar = {
             Button(
-                onClick = {navController.navigate(VerHospitales)}
+                onClick = {
+                    navController.navigate(VerHospitales)
+                    }
+
             ) {
                 Text("Ver Hospitales")
             }

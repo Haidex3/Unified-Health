@@ -17,6 +17,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.develop.myapplication.ui.navigation.CrearHospital
+import com.develop.myapplication.ui.navigation.VerHospitales
+import com.develop.myapplication.ui.screens.hospital.CrearHospitalScreen
 
 @Composable
 fun HomeScreen(navController: NavHostController){
@@ -35,7 +38,7 @@ fun HomeScreen(navController: NavHostController){
             )
             Spacer(Modifier.height(50.dp))
             Button(
-                onClick = {},
+                onClick = {navController.navigate(CrearHospital)},
                 modifier = Modifier.fillMaxWidth().height(100.dp),
                 shape = RectangleShape
             ){
