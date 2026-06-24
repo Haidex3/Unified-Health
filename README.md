@@ -7,12 +7,12 @@ gestion = {agregar,modifcar, eliminar)
 - gestion hospitales 
 - gestion pacientes
 - gestion doctores
-- - modificar tiempos de consulta
+- modificar tiempos de consulta
 - gestion CitasMedicas
 - gestion resultadoCitaMedica (
 - crear historial medico de pacientes
 - revisar datos paciente
-- 
+  
 
 
 ## meter en trello 

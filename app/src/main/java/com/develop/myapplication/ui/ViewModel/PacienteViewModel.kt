@@ -1,18 +1,16 @@
-package com.develop.myapplication.ui.components
+package com.develop.myapplication.ui.ViewModel
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.develop.myapplication.data.remote.dto.PacienteDto
+import com.develop.myapplication.data.remote.service.PacienteApiService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-/*
-@HiltViewModel
-class PacienteViewModel @Inject constructor(
-    private val pacienteRepository: PacienteRepository
-)
-{
+import kotlinx.coroutines.launch
 
-}
-
- */
-/*
 // 🔹 Estado simple
 data class PacienteUiState(
     val isLoading: Boolean = false,
@@ -20,7 +18,10 @@ data class PacienteUiState(
     val error: String? = null
 )
 
-class PacienteViewModel : ViewModel() {
+@HiltViewModel
+class PacienteViewModel @Inject constructor(
+    private val pacienteRepository: PacienteApiService
+) : ViewModel() {
 
     var uiState by mutableStateOf(PacienteUiState())
         private set
@@ -31,24 +32,25 @@ class PacienteViewModel : ViewModel() {
         rut: String,
         correo: String,
         sexo: String,
-        celular: String
+        celular: String,
+        hospitalId: Int
     ) {
         viewModelScope.launch {
 
             uiState = uiState.copy(isLoading = true)
 
             try {
-                val paciente = Paciente(
+                val paciente = PacienteDto(
                     nombre = nombre,
-                    apellido = apellido,
-                    rut = rut,
                     correo = correo,
+                    rut = rut,
                     sexo = sexo,
-                    num_celular = celular
+                    celular = celular,
+                    hospitalId = hospitalId
                 )
 
-                // 🔥 llamada API
-                DataBaseModule.createPaciente(paciente)
+
+                pacienteRepository.createPaciente(paciente)
 
                 uiState = uiState.copy(
                     isLoading = false,
@@ -70,4 +72,4 @@ class PacienteViewModel : ViewModel() {
             error = null
         )
     }
-}*/
+}

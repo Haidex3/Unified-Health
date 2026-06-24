@@ -10,7 +10,6 @@ import com.develop.myapplication.data.local.entity.HospitalEntity
 @Database(entities = [HospitalEntity::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun hospitalDao(): HospitalDao
-
     companion object {
         @Volatile
         private var Instance: AppDatabase? = null

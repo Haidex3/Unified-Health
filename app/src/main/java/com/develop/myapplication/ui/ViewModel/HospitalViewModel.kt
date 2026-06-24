@@ -1,4 +1,4 @@
-package com.develop.myapplication.ui.components
+package com.develop.myapplication.ui.ViewModel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -14,9 +14,9 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-/*
+
 @HiltViewModel
-class FormViewModel @Inject constructor(
+class HospitalFormViewModel @Inject constructor(
     private val hospitalRepository: HospitalRepository
 ) : ViewModel() {
     var nombre by mutableStateOf("")
@@ -41,13 +41,13 @@ class FormViewModel @Inject constructor(
     fun insertarHospital() {
         viewModelScope.launch {
             val nuevoHospital = Hospital(
-                id = 0, // Room lo autogenera
+                id = 0,
                 nombre = nombre,
                 correo = correo,
                 telefono = telefono.toInt(),
                 ubicacion = ubicacion
             )
-            hospitalRepository.insertarHospital(nuevoHospital)
+            hospitalRepository.insertarHospitalBackend(nuevoHospital)
             resetForm()
         }
     }
@@ -58,63 +58,3 @@ class FormViewModel @Inject constructor(
         ubicacion = ""
     }
 }
-
-
-/*
-data class DoctorUiState(
-    val isLoading: Boolean = false,
-    val mensaje: String? = null,
-    val error: String? = null
-)
-
-class MedicoViewModel : ViewModel() {
-
-    var uiState by mutableStateOf(DoctorUiState())
-        private set
-
-    fun registrarMedico(
-        nombre: String,
-        correo: String,
-        password: String,
-        rut: String,
-        celular: String,
-        hospitalId: Int
-    ) {
-        viewModelScope.launch {
-
-            uiState = uiState.copy(isLoading = true)
-
-            try {
-                val medico = Medico(
-                    nombre = nombre,
-                    correo = correo,
-                    password = password,
-                    rut = rut,
-                    celular = celular,
-                    hospital_id = hospitalId
-                )
-
-
-                DataBaseModule.api.createDoctor(medico)
-
-                uiState = uiState.copy(
-                    isLoading = false,
-                    mensaje = "Doctor creado correctamente"
-                )
-
-            } catch (e: Exception) {
-                uiState = uiState.copy(
-                    isLoading = false,
-                    error = "Error al crear doctor"
-                )
-            }
-        }
-    }
-
-    fun limpiarMensaje() {
-        uiState = uiState.copy(
-            mensaje = null,
-            error = null
-        )
-    }
-}*/
