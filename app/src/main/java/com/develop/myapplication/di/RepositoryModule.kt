@@ -17,3 +17,18 @@ abstract class RepositoryModule {
         hospitalRepositoryImpl: HospitalRepositoryImpl
     ): HospitalRepository
 }
+    /*
+    @Binds
+    @Singleton
+    abstract fun bindMedicoRepository(
+        medicoRepositoryImpl: MedicoRepositoryImpl
+    ): MedicoRepository
+    @Binds
+    @Singleton
+    abstract fun bindPacienteRepository(
+        pacienteRepositoryImpl: PacienteRepositoryImpl
+    ): PacienteRepository
+    */
+
+
+

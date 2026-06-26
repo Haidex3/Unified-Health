@@ -3,43 +3,89 @@ package com.develop.myapplication.ui.ViewModel
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.develop.myapplication.data.repository.hospital.HospitalRepository
-import com.develop.myapplication.ui.model.Hospital
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
-import java.lang.Thread.sleep
-import javax.inject.Inject
 
 
-@HiltViewModel
-class HospitalFormViewModel @Inject constructor(
-    private val hospitalRepository: HospitalRepository
-) : ViewModel() {
-    var nombre by mutableStateOf("")
-    var correo by mutableStateOf("")
-    var telefono by mutableStateOf("")
-    var ubicacion by mutableStateOf("")
-    val hospitales: StateFlow<List<Hospital>> = hospitalRepository.obtenerTodosHospitales()
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = emptyList()
+@Composable
+fun CrearMedicoScreen(
+    viewModel: MedicoViewModel,
+    onMedicoCreado: () -> Unit
+) {
+
+    val state by viewModel.uiState.collectAsState()
+
+    var nombre by remember { mutableStateOf("") }
+    var correo by remember { mutableStateOf("") }
+    var especialidad by remember { mutableStateOf("") }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(24.dp),
+        verticalArrangement = Arrangement.Center
+    ) {
+
+        Text("Crear Médico", fontSize = 26.sp)
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        OutlinedTextField(
+            value = nombre,
+            onValueChange = { nombre = it },
+            label = { Text("Nombre") },
+            modifier = Modifier.fillMaxWidth()
         )
 
-    init {
-        actualizarDatos()
-    }
-    fun actualizarDatos(){
-            viewModelScope.launch {
-                hospitalRepository.sincronizarHospitales()
+        Spacer(modifier = Modifier.height(8.dp))
+
+        OutlinedTextField(
+            value = correo,
+            onValueChange = { correo = it },
+            label = { Text("Correo") },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        OutlinedTextField(
+            value = especialidad,
+            onValueChange = { especialidad = it },
+            label = { Text("Especialidad") },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Button(
+            onClick = {
+                viewModel.crearMedico(nombre, correo, especialidad)
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Registrar Médico")
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+
+        if (state.isLoading) {
+            CircularProgressIndicator()
+        }
+
+
+        state.error?.let {
+            Text(text = it, color = MaterialTheme.colorScheme.error)
+        }
+
+
+        state.medico?.let {
+            LaunchedEffect(it) {
+                onMedicoCreado()
             }
-    }
+        }
+
+        
     fun insertarHospital() {
         if (telefono.isBlank()) return
 
@@ -54,12 +100,5 @@ class HospitalFormViewModel @Inject constructor(
             hospitalRepository.insertarHospitalBackend(nuevoHospital)
             resetForm()
         }
-    }
-
-    private fun resetForm() {
-        nombre = ""
-        correo = ""
-        telefono = ""
-        ubicacion = ""
     }
 }

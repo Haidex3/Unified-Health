@@ -5,12 +5,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.develop.myapplication.data.remote.dto.MedicoDto
-import com.develop.myapplication.data.remote.service.MedicoApiService
+import com.develop.myapplication.data.repository.medico.MedicoRepository
+import com.develop.myapplication.ui.model.Medico
 import dagger.hilt.android.lifecycle.HiltViewModel
-import jakarta.inject.Inject
 import kotlinx.coroutines.launch
-data class MedicoUiState(
+import javax.inject.Inject
+data class DoctorUiState(
     val isLoading: Boolean = false,
     val mensaje: String? = null,
     val error: String? = null
@@ -18,16 +18,17 @@ data class MedicoUiState(
 
 @HiltViewModel
 class MedicoViewModel @Inject constructor(
-    private val medicoRepository: MedicoApiService
-): ViewModel() {
-    var uiState by mutableStateOf(MedicoUiState())
+    private val medicoRepository: MedicoRepository
+) : ViewModel() {
+
+    var uiState by mutableStateOf(DoctorUiState())
         private set
     fun registrarMedico(
         nombre: String,
         correo: String,
-        rut: String,
         password: String,
-        celular: Int,
+        rut: String,
+        celular: String,
         hospitalId: Int
     ) {
         viewModelScope.launch {
@@ -35,31 +36,35 @@ class MedicoViewModel @Inject constructor(
             uiState = uiState.copy(isLoading = true)
 
             try {
-                val medico = MedicoDto(
+                val medico = Medico(
                     nombre = nombre,
                     correo = correo,
-                    rut = rut,
-                    contrasena = password,
-                    celular = celular,
+                    password = password,
+                    RUT = rut,
+                    celular = celular.toInt(),
                     hospitalId = hospitalId
                 )
-                medicoRepository.createMedico(medico)
+
+                medicoRepository.insertarMedicoBackend(medico)
 
                 uiState = uiState.copy(
                     isLoading = false,
-                    mensaje = "Medico creado correctamente"
+                    mensaje = "Doctor creado correctamente"
                 )
 
             } catch (e: Exception) {
                 uiState = uiState.copy(
                     isLoading = false,
-                    error = "Error al crear medico"
+                    error = "Error al crear doctor"
                 )
             }
         }
     }
 
     fun limpiarMensaje() {
-        uiState = uiState.copy(mensaje = null, error = null)
+        uiState = uiState.copy(
+            mensaje = null,
+            error = null
+        )
     }
 }
