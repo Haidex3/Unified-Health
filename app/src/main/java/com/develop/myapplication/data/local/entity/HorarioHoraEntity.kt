@@ -6,9 +6,10 @@ import java.util.Date
 
 data class HorarioHoraEntity(
     @PrimaryKey val idHorarioHora:Int,
-    @ColumnInfo val time: String,
-    @ColumnInfo val disponible: Boolean,
-    @ColumnInfo val fecha: Date,
-    @ColumnInfo val idCita: Int,
+    @ColumnInfo(name = "hora") val hora: String?,
+    @ColumnInfo val disponible: Boolean?,
+    @ColumnInfo val fecha: Date?,
+    @ColumnInfo val idCita: Int?,
+
     @ColumnInfo val idMedico: Int
 )
