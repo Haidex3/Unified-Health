@@ -1,4 +1,4 @@
-package com.develop.myapplication.ui.components
+package com.develop.myapplication.ui.ViewModel
 /*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
