@@ -63,6 +63,11 @@ fun Usuario.toEntity() = UsuarioEntity(
 class Horario_horasImpl  @Inject constructor(
     private val database: AppDatabase
 ) : Horario_horasRepository {
-
+    override fun obtenerTodos(): Flow<List<Horario_horasEntity>>? {
+        return database.Horario_horasDao().obtenerTodos().map{ listaEntities ->
+            listaEntities.map { entity -> entity.toDomain()
+            }
+        }
+    }
 }
 
