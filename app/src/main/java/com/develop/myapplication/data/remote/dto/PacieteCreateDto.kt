@@ -1,10 +1,8 @@
 package com.develop.myapplication.data.remote.dto
 
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-data class PacienteDto(
-    @PrimaryKey val id: Int,
+class PacieteCreateDto(
     @SerializedName("nombre") val nombre: String,
     @SerializedName("correo") val correo: String,
     @SerializedName("RUT") val RUT: String,
@@ -12,4 +10,4 @@ data class PacienteDto(
     @SerializedName("celular") val celular: Int,
     @SerializedName("password") val password: String,
     @SerializedName("hospital_id") val hospitalId: Int
-    )
+)

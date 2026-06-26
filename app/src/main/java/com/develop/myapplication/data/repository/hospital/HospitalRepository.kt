@@ -1,5 +1,6 @@
 package com.develop.myapplication.data.repository.hospital
 
+import androidx.compose.runtime.Composable
 import com.develop.myapplication.data.local.entity.HospitalEntity
 import com.develop.myapplication.ui.model.Hospital
 import kotlinx.coroutines.flow.Flow
@@ -11,4 +12,6 @@ interface HospitalRepository {
     suspend fun buscarPorNombre(nombreBusqueda: String): Hospital?
     suspend fun insertarHospital(hospital: Hospital)
     suspend fun borrarHospital(hospital: Hospital)
+    suspend fun insertarHospitalBackend(hospital: Hospital)
+    suspend fun sincronizarHospitales()
 }

@@ -1,41 +1,84 @@
 package com.develop.myapplication.ui.screens.hospital
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
-import com.develop.myapplication.ui.model.Hospital
-import com.develop.myapplication.network.NetworkModule
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import com.develop.myapplication.ui.components.HospitalFormViewModel
+import com.develop.myapplication.ui.navigation.VerHospitales
 import kotlinx.coroutines.launch
 
 @Composable
-fun CrearHospitalScreen() {
-
-    var nombre by remember { mutableStateOf("") }
-    var correo by remember { mutableStateOf("") }
-    var ubicacion by remember { mutableStateOf("") }
-
+fun CrearHospitalScreen(
+    formViewModel: HospitalFormViewModel = hiltViewModel(),
+    navController: NavHostController
+) {
     val scope = rememberCoroutineScope()
+    Scaffold(modifier = Modifier.fillMaxSize(),
+        bottomBar = {
+            Button(
+                onClick = {
+                    navController.navigate(VerHospitales)
+                    }
 
-    Column {
-
-        OutlinedTextField(value = nombre, onValueChange = { nombre = it }, label = { Text("Nombre") })
-        OutlinedTextField(value = correo, onValueChange = { correo = it }, label = { Text("Correo") })
-        OutlinedTextField(value = ubicacion, onValueChange = { ubicacion = it }, label = { Text("Ubicación") })
-
-        Button(onClick = {
-            scope.launch {
-                val hospital = Hospital(nombre = nombre, correo = correo, ubicacion = ubicacion)
-                NetworkModule.api.createHospital(hospital)
+            ) {
+                Text("Ver Hospitales")
             }
-        }) {
-            Text("Guardar Hospital")
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            TextField(
+                value = formViewModel.nombre,
+                onValueChange = { formViewModel.nombre = it },
+                label = { Text("Nombre Hospital") }
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            TextField(
+                value = formViewModel.correo,
+                onValueChange = { formViewModel.correo = it },
+                label = { Text("Correo") }
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            TextField(
+                value = formViewModel.telefono,
+                onValueChange = { formViewModel.telefono = it },
+                label = { Text("Teléfono") }
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            TextField(
+                value = formViewModel.ubicacion,
+                onValueChange = { formViewModel.ubicacion = it },
+                label = { Text("Ubicación") }
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Button(
+                onClick = {
+                    scope.launch {
+                        formViewModel.insertarHospital()
+                    }
+                },
+            ) {
+                Text("Crear Hospital")
+            }
         }
     }
 }

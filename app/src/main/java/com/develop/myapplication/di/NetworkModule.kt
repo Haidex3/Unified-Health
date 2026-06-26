@@ -8,38 +8,34 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
-import javax.inject.Singleton
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
-/*pagina 6 Retrofit*/
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
+        @Provides
+        @Singleton
+        fun provideRetrofit(): Retrofit {
+            return Retrofit.Builder()
+                .baseUrl("http://192.168.0.2:8000/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        }
+        @Provides
+        fun provideHospitalApiService(retrofit: Retrofit): HospitalApiService{
+            return retrofit.create(HospitalApiService::class.java)
+        }
 
-    @Provides
-    @Singleton
-    fun provideRetrofit(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:8000/api/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
+        @Provides
+        fun provideMedicoApiService(retrofit: Retrofit): MedicoApiService {
+            return retrofit.create(MedicoApiService::class.java)
+        }
 
-    @Provides
-    @Singleton
-    fun provideHospitalApiService(retrofit: Retrofit): HospitalApiService {
-        return retrofit.create(HospitalApiService::class.java)
-    }
-
-    @Provides
-    @Singleton
-    fun provideMedicoApiService(retrofit: Retrofit): MedicoApiService {
-        return retrofit.create(MedicoApiService::class.java)
-    }
-
-    @Provides
-    @Singleton
-    fun providePacienteApiService(retrofit: Retrofit): PacienteApiService {
-        return retrofit.create(PacienteApiService::class.java)
-    }
+        @Provides
+        fun providePacienteApiService(retrofit: Retrofit): PacienteApiService {
+            return retrofit.create(PacienteApiService::class.java)
+        }
 }
+
+

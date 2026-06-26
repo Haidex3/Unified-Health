@@ -3,8 +3,8 @@ data class Medico(
     val id: Int? = null,
     val nombre: String,
     val correo: String,
+    val RUT: String,
     val password: String,
-    val rut: String,
-    val celular: String,
-    val hospital_id: Int
+    val celular: Int,
+    val hospitalId: Int
 )

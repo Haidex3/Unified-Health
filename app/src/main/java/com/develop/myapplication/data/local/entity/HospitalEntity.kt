@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class HospitalEntity (
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey val id: Int,
     @ColumnInfo(name = "nombre") val nombre: String?,
     @ColumnInfo(name = "correo") val correo: String?,
     @ColumnInfo(name = "telefono") val telefono: Int?,
