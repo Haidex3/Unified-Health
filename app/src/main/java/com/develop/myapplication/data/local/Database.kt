@@ -5,14 +5,17 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.develop.myapplication.data.local.dao.HospitalDao
+import com.develop.myapplication.data.local.dao.MedicoDao
 import com.develop.myapplication.data.local.dao.PacienteDao
 import com.develop.myapplication.data.local.entity.HospitalEntity
+import com.develop.myapplication.data.local.entity.MedicoEntity
 import com.develop.myapplication.data.local.entity.PacienteEntity
 
-@Database(entities = [HospitalEntity::class, PacienteEntity::class], version = 1, exportSchema = false)
+@Database(entities = [HospitalEntity::class, PacienteEntity::class, MedicoEntity::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun hospitalDao(): HospitalDao
     abstract fun pacienteDao(): PacienteDao
+    abstract fun medicoDao(): MedicoDao
 
     companion object {
         @Volatile

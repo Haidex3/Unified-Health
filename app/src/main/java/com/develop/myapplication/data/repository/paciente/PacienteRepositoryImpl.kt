@@ -3,10 +3,8 @@ package com.develop.myapplication.data.repository.paciente
 
 import android.util.Log
 import com.develop.myapplication.data.local.AppDatabase
-import com.develop.myapplication.data.local.entity.HospitalEntity
 import com.develop.myapplication.data.local.entity.PacienteEntity
-import com.develop.myapplication.data.remote.dto.HospitalDto
-import com.develop.myapplication.data.remote.dto.PacieteCreateDto
+import com.develop.myapplication.data.remote.dto.PacienteCreateDto
 import com.develop.myapplication.data.remote.dto.PacienteDto
 import com.develop.myapplication.data.remote.service.PacienteApiService
 import com.develop.myapplication.ui.model.Paciente
@@ -88,8 +86,8 @@ fun PacienteDto.toEntity(): PacienteEntity {
     )
 }
 
-fun Paciente.toCreateDto(): PacieteCreateDto{
-    return PacieteCreateDto(
+fun Paciente.toCreateDto(): PacienteCreateDto{
+    return PacienteCreateDto(
         nombre = this.nombre,
         correo = this.correo,
         RUT = this.RUT,
