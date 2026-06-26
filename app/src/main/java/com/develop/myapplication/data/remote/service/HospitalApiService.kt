@@ -9,7 +9,7 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface HospitalApiService{
-    @GET("hospital")
+    @GET("hospitales")
     suspend fun getHospital(): List<HospitalDto>
     @GET("actividades/{id}")
     suspend fun getHospitalById(@Path("id") id: Int): HospitalDto
