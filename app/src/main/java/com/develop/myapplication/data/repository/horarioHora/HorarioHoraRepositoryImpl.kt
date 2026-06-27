@@ -3,11 +3,14 @@ package com.develop.myapplication.data.repository.horarioHora
 import android.util.Log
 import com.develop.myapplication.data.local.AppDatabase
 import com.develop.myapplication.data.local.entity.HorarioHoraEntity
+import com.develop.myapplication.data.local.entity.HospitalEntity
 import com.develop.myapplication.data.remote.dto.HorarioHoraCreateDto
 import com.develop.myapplication.data.remote.dto.HorarioHoraDto
+import com.develop.myapplication.data.remote.dto.HospitalDto
 import com.develop.myapplication.data.remote.service.HorarioHoraApiService
 
 import com.develop.myapplication.ui.model.HorarioHora
+import com.develop.myapplication.ui.model.Hospital
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -78,16 +81,6 @@ fun HorarioHora.toEntity() = HorarioHoraEntity(
     idCita = this.idCita
 )
 
-fun HorarioHora.toCreateDto(): HorarioHoraCreateDto {
-    return HorarioHoraCreateDto(
-        hora = this.hora,
-        disponible = this.disponible,
-        fecha = this.fecha,
-        idMedico = this.idMedico,
-        idCita  = this.idCita
-    )
-}
-
 fun HorarioHora.toDto(): HorarioHoraDto {
     return HorarioHoraDto(
         id = this.id,
@@ -99,3 +92,24 @@ fun HorarioHora.toDto(): HorarioHoraDto {
     )
 }
 
+fun HorarioHora.toCreateDto(): HorarioHoraCreateDto {
+    return HorarioHoraCreateDto(
+        hora = this.hora,
+        disponible = this.disponible,
+        fecha = this.fecha,
+        idMedico = this.idMedico,
+        idCita  = this.idCita
+    )
+}
+
+fun HorarioHoraDto.toEntity(): HorarioHoraEntity {
+
+    return HorarioHoraEntity(
+        id = this.id,
+        hora = this.hora,
+        disponible = this.disponible,
+        fecha = this.fecha,
+        idMedico = this.idMedico,
+        idCita = this.idCita
+    )
+}
