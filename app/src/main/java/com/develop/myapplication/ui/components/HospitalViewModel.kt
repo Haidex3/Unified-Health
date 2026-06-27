@@ -1,19 +1,17 @@
 package com.develop.myapplication.ui.components
 
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.develop.myapplication.data.repository.hospital.HospitalRepository
+import com.develop.myapplication.data.repository.cita.HospitalRepository
 import com.develop.myapplication.ui.model.Hospital
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import java.lang.Thread.sleep
 import javax.inject.Inject
 
 
