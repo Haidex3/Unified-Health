@@ -10,7 +10,7 @@ data class CitaEntity (
     @PrimaryKey val id: Int,
 
     @ColumnInfo(name = "fecha") val fecha: String?,
-    @ColumnInfo(name = "detalles") val detalles: String?,
+    @ColumnInfo(name = "detalles") val detalle: String?,
     @ColumnInfo(name = "conclusion") val conclusion: String?,
 
     @ColumnInfo val idMedico:Int?

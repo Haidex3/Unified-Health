@@ -3,9 +3,10 @@ package com.develop.myapplication.data.repository.cita.
 import android.util.Log
 import com.develop.myapplication.data.local.AppDatabase
 import com.develop.myapplication.data.local.entity.CitaEntity
+import com.develop.myapplication.data.remote.dto.CitaCreateDto
+import com.develop.myapplication.data.remote.dto.CitaDto
 import com.develop.myapplication.data.repository.cita.CitaRepository
 import com.develop.myapplication.ui.model.Cita
-import com.develop.myapplication.ui.model.Hospital
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -51,7 +52,7 @@ class CitaRepositoryImpl @Inject constructor(
 fun CitaEntity.toDomain() = Cita(
     id = this.id,
     fecha = this.fecha?: "Sin Fecha",
-    detalle = this.detalles?:"Sin detalle",
+    detalle = this.detalle?:"Sin detalle",
     conclusion = this.conclusion?:"Sin conclucion",
     idMedico = this.idMedico?:0
     )
@@ -59,7 +60,7 @@ fun CitaEntity.toDomain() = Cita(
 fun Cita.toEntity() = CitaEntity(
     id = this.id,
     fecha = this.fecha,
-    detalles = this.detalle,
+    detalle = this.detalle,
     conclusion = this.conclusion,
     idMedico = this.idMedico
 )
@@ -67,19 +68,19 @@ fun Cita.toEntity() = CitaEntity(
 fun Cita.toDto(): CitaDto {
     return CitaDto(
         id = this.id,
-        nombre = this.nombre,
-        correo = this.correo,
-        telefono = this.telefono,
-        ubicacion = this.ubicacion
+        fecha = this.fecha,
+        detalle = this.detalle,
+        conclusion= this.conclusion,
+        idMedico = this.idMedico
     )
 }
 
 fun Cita.toCreateDto(): CitaCreateDto {
     return CitaCreateDto(
-        nombre = this.nombre,
-        correo = this.correo,
-        telefono = this.telefono,
-        ubicacion = this.ubicacion
+        fecha = this.fecha,
+        detalle = this.detalle,
+        conclusion = this.conclusion,
+        idMedico = this.idMedico
     )
 }
 
@@ -87,9 +88,9 @@ fun CitaDto.toEntity(): CitaEntity {
 
     return CitaEntity(
         id = this.id,
-        nombre = this.nombre,
-        correo = this.correo,
-        telefono = this.telefono,
-        ubicacion = this.ubicacion
+        fecha = this.fecha,
+        detalle = this.detalle,
+        conclusion = this.conclusion,
+        idMedico = this.idMedico
     )
 }

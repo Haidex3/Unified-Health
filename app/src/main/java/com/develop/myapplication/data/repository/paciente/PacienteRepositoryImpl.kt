@@ -90,10 +90,10 @@ fun Paciente.toCreateDto(): PacienteCreateDto{
     return PacienteCreateDto(
         nombre = this.nombre,
         correo = this.correo,
-        RUT = this.RUT,
+        rut = this.rut,
         sexo = this.sexo,
         celular = this.celular,
         password = this.password,
-        hospitalId = this.hospitalId
+        idHospital = this.idHospital
     )
 }
