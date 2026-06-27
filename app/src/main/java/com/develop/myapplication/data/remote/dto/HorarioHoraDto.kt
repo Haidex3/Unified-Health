@@ -8,5 +8,6 @@ data class HorarioHoraDto(
     @SerializedName("hora") val hora: String,
     @SerializedName("disponible") val disponible: Boolean,
     @SerializedName("fecha") val fecha: String,
-    @SerializedName("idMedico") val idMedico: String
+    @SerializedName("idMedico") val idMedico: Int,
+    @SerializedName("idCita") val idCita: Int
 )

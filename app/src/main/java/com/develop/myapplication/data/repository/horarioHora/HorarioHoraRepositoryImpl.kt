@@ -3,8 +3,10 @@ package com.develop.myapplication.data.repository.horarioHora
 import android.util.Log
 import com.develop.myapplication.data.local.AppDatabase
 import com.develop.myapplication.data.local.entity.HorarioHoraEntity
-import com.develop.myapplication.data.repository.hospital.toCreateDto
-import com.develop.myapplication.data.repository.hospital.toEntity
+import com.develop.myapplication.data.remote.dto.HorarioHoraCreateDto
+import com.develop.myapplication.data.remote.dto.HorarioHoraDto
+import com.develop.myapplication.data.remote.service.HorarioHoraApiService
+
 import com.develop.myapplication.ui.model.HorarioHora
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
@@ -15,13 +17,13 @@ import kotlin.collections.map
 class HorarioHoraRepositoryImpl @Inject constructor(
     private val database: AppDatabase,
     private val apiService: HorarioHoraApiService
-): HorarioHoraRepositoryImpl {
+): HorarioHoraRepository {
     override fun obtenerTodosHorarios(): Flow<List<HorarioHora>> {
         return database.horarioHoraDao().obtenerTodos().map{it.map{it.toDomain()}}
     }
 
-    override suspend fun insertarHorario(HorarioHora: HorarioHora) {
-        database.horarioHoraDao().insertarTodos(HorarioHora.toEntity())
+    override suspend fun insertarHorario(horario: HorarioHora) {
+        database.horarioHoraDao().insertarTodos(horario.toEntity())
     }
 
     override suspend fun obtenerPorId(id: Int): HorarioHora? {
@@ -34,8 +36,8 @@ class HorarioHoraRepositoryImpl @Inject constructor(
 
     override suspend fun insertarHorarioBackend(horario: HorarioHora) {
         try {
-            val horarioApi = apiService.createHorario(HorarioHora.toCreateDto())
-            database.hospitalDao().insertarTodos(horarioApi.toEntity())
+            val horarioApi = apiService.createHorario(horario.toCreateDto())
+            database.horarioHoraDao().insertarTodos(horarioApi.toEntity())
         }catch (e: Exception){
             Log.e("Fallo","Error al conectar con la base de datos."+e.message,e)
         }
@@ -48,7 +50,7 @@ class HorarioHoraRepositoryImpl @Inject constructor(
 
     override suspend fun sincronizarHorarios() {
         try {
-            val horarioRemotos = apiService.getHorarioHora()
+            val horarioRemotos = apiService.getHorario()
             val entidades = horarioRemotos.map { it.toEntity() }
             database.horarioHoraDao().refrescarHorarios(entidades)
         } catch (e: Exception) {
@@ -76,18 +78,17 @@ fun HorarioHora.toEntity() = HorarioHoraEntity(
     idCita = this.idCita
 )
 
-fun HorarioHora.toCreateDto(): HorarioHoraCreateDto{
+fun HorarioHora.toCreateDto(): HorarioHoraCreateDto {
     return HorarioHoraCreateDto(
-        id = this.id,
         hora = this.hora,
         disponible = this.disponible,
         fecha = this.fecha,
-        idMedic = this.idMedico,
+        idMedico = this.idMedico,
         idCita  = this.idCita
     )
 }
 
-fun HorarioHora.toDto(): HorarioHoraDto{
+fun HorarioHora.toDto(): HorarioHoraDto {
     return HorarioHoraDto(
         id = this.id,
         hora = this.hora,

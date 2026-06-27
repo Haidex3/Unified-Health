@@ -1,10 +1,11 @@
-package com.develop.myapplication.data.repository.cita.
+package com.develop.myapplication.data.repository.cita
 
 import android.util.Log
 import com.develop.myapplication.data.local.AppDatabase
 import com.develop.myapplication.data.local.entity.CitaEntity
 import com.develop.myapplication.data.remote.dto.CitaCreateDto
 import com.develop.myapplication.data.remote.dto.CitaDto
+import com.develop.myapplication.data.remote.service.CitaApiService
 import com.develop.myapplication.data.repository.cita.CitaRepository
 import com.develop.myapplication.ui.model.Cita
 import javax.inject.Inject
@@ -41,7 +42,7 @@ class CitaRepositoryImpl @Inject constructor(
 
     override suspend fun sincronizarCitas() {
         try {
-            val citasRemotos = apiService.getCita()
+            val citasRemotos = apiService.getCitas()
             val entidades = citasRemotos.map { it.toEntity() }
             database.citaDao().refrescarCitas(entidades)
         } catch (e: Exception) {
