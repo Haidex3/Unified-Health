@@ -15,6 +15,4 @@ class AppDataContainer(private val context: Context) : AppContainer {
         HospitalRepositoryImpl(AppDatabase.getDatabase(context),
         NetworkModule.provideHospitalApiService(NetworkModule.provideRetrofit()))
     }
-
-
 }

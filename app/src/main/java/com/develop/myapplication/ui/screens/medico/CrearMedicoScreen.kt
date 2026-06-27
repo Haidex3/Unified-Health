@@ -9,53 +9,39 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.TopAppBar
+import com.develop.myapplication.di.DataBaseModule
 import com.develop.myapplication.ui.model.Medico
-
+import kotlinx.coroutines.launch
+/*
 @Composable
-fun CrearMedicoScreen(
-    onGuardarClick: (Medico) -> Unit,
-    onCancelarClick: () -> Unit
-) {
+fun CrearMedicoScreen() {
     var nombre by remember { mutableStateOf("") }
     var correo by remember { mutableStateOf("") }
-    var RUT by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+    var rut by remember { mutableStateOf("") }
     var celular by remember { mutableStateOf("") }
-    var hospitalId by remember { mutableStateOf(0) }
+    var hospitalId by remember { mutableStateOf("") }
+    val scope = rememberCoroutineScope()
 
-
-    Scaffold(
-        topBar = { TopAppBar(title = { Text("Registrar Nuevo Médico") }) }
-    ) { paddingValues ->
-        Column(
-            modifier = Modifier.fillMaxSize().padding(paddingValues).padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            OutlinedTextField(value = nombre, onValueChange = { nombre = it }, label = { Text("Nombre del Médico") }, modifier = Modifier.fillMaxWidth())
-            OutlinedTextField(value = correo, onValueChange = { correo = it }, label = { Text("Especialidad") }, modifier = Modifier.fillMaxWidth())
-            OutlinedTextField(value = RUT, onValueChange = { RUT = it }, label = { Text("Nº Licencia / Colegiatura") }, modifier = Modifier.fillMaxWidth())
-            OutlinedTextField(value = password, onValueChange = { password = it }, label = { Text("Correo Electrónico") }, modifier = Modifier.fillMaxWidth())
-            OutlinedTextField(value = celular, onValueChange = { celular = it }, label = { Text("Celular") }, modifier = Modifier.fillMaxWidth())
-            OutlinedTextField(value = hospitalId.toString(), onValueChange = { hospitalId = it.toInt() }, label = { Text("Hospital ID") }, modifier = Modifier.fillMaxWidth())
-
-
-            Spacer(modifier = Modifier.height(16.dp))
-            Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                OutlinedButton(onClick = onCancelarClick, modifier = Modifier.weight(1f)) { Text("Cancelar") }
-                Button(onClick = { onGuardarClick(Medico(nombre = nombre, correo = correo, RUT = RUT, password = password, celular = celular.toInt(), hospitalId = hospitalId)) }, modifier = Modifier.weight(1f)) { Text("Registrar") }
+    Column(modifier = Modifier.padding(16.dp)) {
+        Text("Crear Medico")
+        OutlinedTextField(value = nombre, onValueChange = { nombre = it }, label = { Text("Nombre") })
+        OutlinedTextField(value = correo, onValueChange = { correo = it }, label = { Text("Correo") })
+        OutlinedTextField(value = rut, onValueChange = { rut = it }, label = { Text("RUT") })
+        OutlinedTextField(value = celular, onValueChange = { celular = it }, label = { Text("Celular") })
+        OutlinedTextField(value = hospitalId, onValueChange = { hospitalId = it }, label = { Text("ID Hospital") })
+        Button(onClick = {
+            scope.launch {
+                try {
+                    DataBaseModule.api.createDoctor(
+                        Medico(nombre = nombre, correo = correo, rut = rut,
+                            celular = celular, password = "", hospital_id = hospitalId.toIntOrNull() ?: 0)
+                    )
+                } catch (e: Exception) { /* mostrar error */ }
             }
-        }
+        }) { Text("Guardar Doctor") }
     }
-}
+}*/

@@ -22,7 +22,7 @@ import com.develop.myapplication.ui.navigation.VerHospitales
 import kotlinx.coroutines.launch
 
 @Composable
-fun CrearHospitalScreen(
+fun EliminarHospitalScreen(
     formViewModel: HospitalFormViewModel = hiltViewModel(),
     navController: NavHostController
 ) {
@@ -32,7 +32,7 @@ fun CrearHospitalScreen(
             Button(
                 onClick = {
                     navController.navigate(VerHospitales)
-                    }
+                }
 
             ) {
                 Text("Ver Hospitales")
