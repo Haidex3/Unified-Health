@@ -12,7 +12,7 @@ data class MedicoEntity(
     @ColumnInfo(name = "correo") val correo: String?,
     @ColumnInfo(name = "celular") val celular: String?,
     @ColumnInfo(name = "password") val password: String?,
-
     @ColumnInfo val rut: Int?,
+
     @ColumnInfo val idHospital: Int?
     )

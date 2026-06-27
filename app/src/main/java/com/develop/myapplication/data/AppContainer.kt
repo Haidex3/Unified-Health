@@ -2,9 +2,7 @@ package com.develop.myapplication.data
 
 import android.content.Context
 import com.develop.myapplication.data.local.AppDatabase
-import com.develop.myapplication.data.repository.horarioHora.HorarioHorasImplFactory
 import com.develop.myapplication.data.repository.horarioHora.HorarioHoraRepository
-import com.develop.myapplication.data.repository.horarioHora.HoraioHoraRepositoryImpl
 import com.develop.myapplication.data.repository.horarioHora.HorarioHoraRepositoryImpl
 import com.develop.myapplication.data.repository.hospital.HospitalRepository
 import com.develop.myapplication.data.repository.hospital.HospitalRepositoryImpl

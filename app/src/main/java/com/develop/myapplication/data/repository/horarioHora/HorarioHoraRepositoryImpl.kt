@@ -98,4 +98,14 @@ fun HorarioHora.toDto(): HorarioHoraDto {
         idCita = this.idCita
     )
 }
+fun HorarioHoraDto.toEntity(): HorarioHoraEntity {
 
+    return HorarioHoraEntity(
+        id = this.id,
+        hora=this.hora,
+        disponible= this.disponible,
+        fecha = this.fecha,
+        idMedico = this.idMedico,
+        idCita = this.idCita
+    )
+}

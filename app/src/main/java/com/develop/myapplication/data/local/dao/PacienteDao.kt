@@ -39,7 +39,7 @@ interface PacienteDao {
     suspend fun borrarTodos()
 
     @Transaction
-    suspend fun refrescarHospitales(pacientes: List<PacienteEntity>) {
+    suspend fun refrescarPacientes(pacientes: List<PacienteEntity>) {
         borrarTodos()
         insertarTodos(*pacientes.toTypedArray())
     }

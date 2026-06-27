@@ -1,6 +1,7 @@
 package com.develop.myapplication.di
 
-import com.develop.myapplication.data.local.entity.HorarioHoraEntity
+import com.develop.myapplication.data.repository.cita.CitaRepository
+import com.develop.myapplication.data.repository.cita.CitaRepositoryImpl
 import com.develop.myapplication.data.repository.horarioHora.HorarioHoraRepository
 import com.develop.myapplication.data.repository.horarioHora.HorarioHoraRepositoryImpl
 import com.develop.myapplication.data.repository.hospital.HospitalRepository
@@ -38,8 +39,14 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindHorarioHorasRepository(
-        horario_horasRepositoryImpl: HorarioHoraEntityImpl
+    abstract fun bindHorario_horasRepository(
+        horario_horasRepositoryImpl: HorarioHoraRepositoryImpl
     ): HorarioHoraRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindCitasRepository(
+        citaRepositoryImpl: CitaRepositoryImpl
+    ): CitaRepository
 
 }

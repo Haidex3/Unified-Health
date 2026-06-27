@@ -13,5 +13,5 @@ data class CitaEntity (
     @ColumnInfo(name = "detalles") val detalle: String?,
     @ColumnInfo(name = "conclusion") val conclusion: String?,
 
-    @ColumnInfo val idMedico:Int?
+    @ColumnInfo val idPaciente:Int?
 )
