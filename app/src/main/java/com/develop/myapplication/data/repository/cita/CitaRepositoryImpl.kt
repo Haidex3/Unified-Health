@@ -81,7 +81,7 @@ fun Cita.toCreateDto(): CitaCreateDto {
         fecha = this.fecha,
         detalle = this.detalle,
         conclusion = this.conclusion,
-        idMedico = this.idPaciente
+        idPaciente = this.idPaciente
     )
 }
 

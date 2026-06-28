@@ -53,7 +53,10 @@ class HospitalFormViewModel @Inject constructor(
             resetForm()
         }
     }
-
+    fun buscarIdPorNombre(nombre: String): String{
+        val nombreBusqueda =  hospitalRepository.buscarIdPorNombre(nombre)
+        return nombreBusqueda
+    }
     private fun resetForm() {
         nombre = ""
         correo = ""

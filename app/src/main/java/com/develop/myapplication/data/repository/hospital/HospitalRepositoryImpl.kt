@@ -52,6 +52,10 @@ class HospitalRepositoryImpl @Inject constructor(
             Log.e("HospitalRepository", "Error al sincronizar Hospitales desde la API " + e.message, e)
         }
     }
+    override fun buscarIdPorNombre(nombre: String): String
+    {
+        return database.hospitalDao().buscarIdPorNombre(nombre).toString()
+    }
 }
 fun HospitalEntity.toDomain() = Hospital(
     id = this.id,

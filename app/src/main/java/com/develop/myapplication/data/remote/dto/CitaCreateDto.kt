@@ -7,5 +7,5 @@ data class CitaCreateDto (
     @SerializedName("fecha") val fecha: String?,
     @SerializedName("detalles") val detalle: String?,
     @SerializedName("conclusion") val conclusion: String?,
-    @SerializedName("idMedico") val idMedico:Int?
+    @SerializedName("idPaciente") val idPaciente:Int?
 )

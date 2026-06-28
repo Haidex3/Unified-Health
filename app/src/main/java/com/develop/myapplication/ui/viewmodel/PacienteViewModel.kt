@@ -9,8 +9,11 @@ import com.develop.myapplication.data.repository.paciente.PacienteRepository
 import com.develop.myapplication.ui.model.Medico
 import com.develop.myapplication.ui.model.Paciente
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.WhileSubscribed
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -28,7 +31,7 @@ class PacienteViewModel @Inject constructor(
     var password   by mutableStateOf("")
     var idHospital by mutableStateOf("")
 
-    val paciente: StateFlow<List<Paciente>> = pacienteRepository.obtenerTodosPacientes()
+    val pacientes: StateFlow<List<Paciente>> = pacienteRepository.obtenerTodosPacientes()
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.Companion.WhileSubscribed(5000),
@@ -43,6 +46,7 @@ class PacienteViewModel @Inject constructor(
         }
     }
     fun insertarPaciente() {
+
         viewModelScope.launch {
             val nuevoPaciente = Paciente(
                 id         = 0,
@@ -58,9 +62,28 @@ class PacienteViewModel @Inject constructor(
             resetForm()
         }
     }
+
+    var searchJob: Job? = null
+    fun onRutChange(){
+        searchJob?.cancel()
+        if(rut.length > 8){
+            searchJob = viewModelScope.launch {
+                delay(500)
+                val paciente = pacienteRepository.buscarPorRut(rut.toInt())
+                    nombre      = paciente.nombre
+                    sexo        = paciente.sexo
+                    correo      = paciente.correo
+                    password    = paciente.password
+                    celular     = paciente.celular
+                    idHospital  = paciente.idHospital.toString()
+            }
+        }
+        else{
+            resetForm()
+        }
+    }
     private fun resetForm() {
         nombre   = ""
-        rut      = ""
         sexo     = ""
         correo   = ""
         password = ""

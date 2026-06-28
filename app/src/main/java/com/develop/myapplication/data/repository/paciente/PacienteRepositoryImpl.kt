@@ -49,6 +49,9 @@ class PacienteRepositoryImpl @Inject constructor(
         }
 
     }
+    override fun buscarPorRut(rut: Int): Paciente {
+        return database.pacienteDao().buscarPorRut(rut).toDomain()
+    }
 }
 
 fun PacienteEntity.toDomain() = Paciente(

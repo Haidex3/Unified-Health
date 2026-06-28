@@ -12,4 +12,5 @@ interface HospitalRepository {
     suspend fun borrarHospital(hospital: Hospital)
     suspend fun insertarHospitalBackend(hospital: Hospital)
     suspend fun sincronizarHospitales()
+    fun buscarIdPorNombre(nombre: String): String
 }

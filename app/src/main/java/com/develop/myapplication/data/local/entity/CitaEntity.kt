@@ -1,5 +1,6 @@
 package com.develop.myapplication.data.local.entity
 
+import androidx.navigation.Navigator
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -13,5 +14,5 @@ data class CitaEntity (
     @ColumnInfo(name = "detalles") val detalle: String?,
     @ColumnInfo(name = "conclusion") val conclusion: String?,
 
-    @ColumnInfo val idPaciente:Int?
+    @ColumnInfo(name = "idPaciente") val idPaciente:Int?
 )
