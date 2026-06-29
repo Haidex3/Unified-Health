@@ -7,7 +7,7 @@ class MedicoDto (
     @PrimaryKey val id: Int,
     @SerializedName("nombre") val nombre: String,
     @SerializedName("correo") val correo: String,
-    @SerializedName("rut") val rut: Int,
+    @SerializedName("RUT") val rut: Int,
     @SerializedName("password") val password: String,
     @SerializedName("celular") val celular: String,
     @SerializedName("idHospital") val idHospital: Int
