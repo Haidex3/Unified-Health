@@ -1,4 +1,4 @@
-package com.develop.myapplication.ui.screens.auth
+package com.develop.myapplication.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,6 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.develop.myapplication.ui.navigation.HospitalPantalla
+import com.develop.myapplication.ui.navigation.MedicoPantalla
+import com.develop.myapplication.ui.navigation.PacientePantalla
 import com.develop.myapplication.ui.viewmodel.AuthViewModel
 
 @Composable
@@ -31,9 +33,34 @@ fun InicioSesionScreen(
 ) {
 
     LaunchedEffect(viewModel.loginSuccess) {
+
         if (viewModel.loginSuccess) {
-            navController.navigate(HospitalPantalla) {
-                popUpTo(0)
+
+            when (viewModel.userType) {
+
+                "administrador" -> {
+                    navController.navigate(HospitalPantalla) {
+                        popUpTo(0)
+                    }
+                }
+
+                "medico" -> {
+                    navController.navigate(MedicoPantalla) {
+                        popUpTo(0)
+                    }
+                }
+
+                "paciente" -> {
+                    navController.navigate(PacientePantalla) {
+                        popUpTo(0)
+                    }
+                }
+
+                else -> {
+                    navController.navigate("login") {
+                        popUpTo(0)
+                    }
+                }
             }
         }
     }

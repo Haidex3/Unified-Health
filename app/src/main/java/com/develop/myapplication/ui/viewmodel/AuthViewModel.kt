@@ -27,6 +27,9 @@ class AuthViewModel @Inject constructor(
     var loginSuccess by mutableStateOf(false)
         private set
 
+    var userType by mutableStateOf<String?>(null)
+        private set
+
     fun login() {
 
         viewModelScope.launch {
@@ -34,6 +37,7 @@ class AuthViewModel @Inject constructor(
             isLoading = true
             errorMessage = null
             loginSuccess = false
+            userType = null
 
             try {
 
@@ -42,6 +46,8 @@ class AuthViewModel @Inject constructor(
                     password = password
                 )
 
+                // 👇 clave: usar el type del backend
+                userType = response.type
                 loginSuccess = true
 
             } catch (e: Exception) {
@@ -53,7 +59,6 @@ class AuthViewModel @Inject constructor(
     }
 
     fun logout() {
-
         viewModelScope.launch {
             try {
                 authRepository.logout()
