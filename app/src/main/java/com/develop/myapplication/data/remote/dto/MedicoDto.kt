@@ -10,6 +10,5 @@ class MedicoDto (
     @SerializedName("RUT") val rut: Int,
     @SerializedName("password") val password: String,
     @SerializedName("celular") val celular: String,
-
-    @SerializedName("hospital_id") val idHospital: Int
+    @SerializedName("idHospital") val idHospital: Int
 )
