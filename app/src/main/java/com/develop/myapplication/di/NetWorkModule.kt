@@ -1,5 +1,7 @@
 package com.develop.myapplication.di
 
+import com.develop.myapplication.data.remote.service.CitaApiService
+import com.develop.myapplication.data.remote.service.Horario_horasApiService
 import com.develop.myapplication.data.remote.service.HospitalApiService
 import com.develop.myapplication.data.remote.service.MedicoApiService
 import com.develop.myapplication.data.remote.service.PacienteApiService
@@ -28,6 +30,12 @@ object NetworkModule {
         }
 
         @Provides
+        fun provideHorario_citasApiService(retrofit: Retrofit): Horario_horasApiService{
+            return retrofit.create(Horario_horasApiService::class.java)
+        }
+
+
+        @Provides
         fun provideMedicoApiService(retrofit: Retrofit): MedicoApiService {
             return retrofit.create(MedicoApiService::class.java)
         }
@@ -36,6 +44,11 @@ object NetworkModule {
         fun providePacienteApiService(retrofit: Retrofit): PacienteApiService {
             return retrofit.create(PacienteApiService::class.java)
         }
+
+    @Provides
+    fun provideCitaApiService(retrofit: Retrofit): CitaApiService {
+        return retrofit.create(CitaApiService::class.java)
+    }
 }
 
 

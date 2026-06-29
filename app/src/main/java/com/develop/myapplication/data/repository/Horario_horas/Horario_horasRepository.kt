@@ -7,10 +7,12 @@ import kotlinx.coroutines.flow.Flow
 
 interface Horario_horasRepository {
 
-    fun obtenerTodos(): Flow<List<Horario_horasEntity>>?
-    suspend fun obtenerPorId(id: Int): Horario_horasEntity?
-    suspend fun obtenerPorId(userIds: IntArray): List<Horario_horasEntity>?
-    suspend fun insertarTodos(vararg horario: Horario_horasEntity)
-    suspend fun borrar(horario: Horario_horasEntity)
-
+    fun obtenerTodosHorarios(): Flow<List<Horario_horas>>
+    suspend fun obtenerPorId(id: Int): Horario_horas?
+    suspend fun obtenerPorId(horarioIds: IntArray): List<Horario_horas>
+    suspend fun insertarHorario( horario: Horario_horas)
+    suspend fun borrar(horario: Horario_horas)
+    suspend fun insertarHorarioBackend(horario: Horario_horas)
+    suspend fun sincronizarHorarios()
 }
+

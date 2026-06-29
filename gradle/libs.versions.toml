@@ -10,6 +10,8 @@ kotlin = "2.3.0"
 composeBom = "2026.05.01"
 
 nav-version = "2.9.8"
+kotlin-serialization = "1.11.0"
+plugin-serialization = "2.3.0"
 
 version-hilt = "2.59.2"
 ksp = "2.3.6"
@@ -40,6 +42,7 @@ androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-te
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "nav-version" }
+kotlin-serialization = {group="org.jetbrains.kotlin", name="kotlinx-serialization-json", version.ref="nav-version"}
 
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "version-hilt" }
 hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "version-hilt" }
@@ -59,6 +62,7 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3",
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+plugin-serialization ={id="org.jetbrains.kotlin.plugin.serialization", version.ref="plugin-serialization"}
 
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "version-hilt" }

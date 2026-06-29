@@ -66,7 +66,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
     implementation(libs.okhttp)
-
+    implementation(libs.kotlin.serialization)
 
     implementation(libs.navigation.compose)
 
@@ -81,7 +81,6 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
     implementation(libs.okhttp)
-    implementation(libs.kotlin.serialization)
 
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
