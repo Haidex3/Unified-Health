@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.develop.myapplication.ui.navigation.HospitalPantalla
+import com.develop.myapplication.ui.navigation.InicioSesion
 import com.develop.myapplication.ui.navigation.MedicoPantalla
 import com.develop.myapplication.ui.navigation.PacientePantalla
 
@@ -48,7 +49,7 @@ fun HomeScreen(navController: NavHostController){
                 Text("Paciente")
             }
             Button(
-                onClick = {navController.navigate(HospitalPantalla)},
+                onClick = {navController.navigate(InicioSesion)},
                 modifier = Modifier.fillMaxWidth().height(100.dp),
                 shape = RectangleShape
             ){
