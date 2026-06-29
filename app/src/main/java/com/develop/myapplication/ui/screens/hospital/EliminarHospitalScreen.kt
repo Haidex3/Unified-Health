@@ -14,11 +14,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.develop.myapplication.ui.viewmodel.HospitalFormViewModel
-import com.develop.myapplication.ui.navigation.VerHospitales
 import kotlinx.coroutines.launch
 
 @Composable
@@ -27,17 +25,8 @@ fun EliminarHospitalScreen(
     navController: NavHostController
 ) {
     val scope = rememberCoroutineScope()
-    Scaffold(modifier = Modifier.fillMaxSize(),
-        bottomBar = {
-            Button(
-                onClick = {
-                    navController.navigate(VerHospitales)
-                }
-
-            ) {
-                Text("Ver Hospitales")
-            }
-        }
+    Scaffold(
+        modifier = Modifier.fillMaxSize()
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -51,33 +40,15 @@ fun EliminarHospitalScreen(
                 onValueChange = { formViewModel.nombre = it },
                 label = { Text("Nombre Hospital") }
             )
-            Spacer(modifier = Modifier.height(8.dp))
-            TextField(
-                value = formViewModel.correo,
-                onValueChange = { formViewModel.correo = it },
-                label = { Text("Correo") }
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            TextField(
-                value = formViewModel.telefono,
-                onValueChange = { formViewModel.telefono = it },
-                label = { Text("Teléfono") }
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            TextField(
-                value = formViewModel.ubicacion,
-                onValueChange = { formViewModel.ubicacion = it },
-                label = { Text("Ubicación") }
-            )
-            Spacer(modifier = Modifier.height(16.dp))
+
             Button(
                 onClick = {
                     scope.launch {
-                        formViewModel.insertarHospital()
+                        formViewModel.eliminarHospital(formViewModel.nombre)
                     }
                 },
             ) {
-                Text("Crear Hospital")
+                Text("Eliminar Hospital")
             }
         }
     }

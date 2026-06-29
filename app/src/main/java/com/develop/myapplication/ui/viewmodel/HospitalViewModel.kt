@@ -39,7 +39,6 @@ class HospitalFormViewModel @Inject constructor(
             }
     }
     fun insertarHospital() {
-        if (telefono.isBlank()) return
 
         viewModelScope.launch {
             val nuevoHospital = Hospital(
@@ -53,10 +52,15 @@ class HospitalFormViewModel @Inject constructor(
             resetForm()
         }
     }
-    fun buscarIdPorNombre(nombre: String): String{
+    suspend fun eliminarHospital(nombreHospital: String){
+        val hospitalBorar: Hospital = hospitalRepository.buscarPorNombre(nombreHospital)
+        hospitalRepository.borrarHospital(hospitalBorar)
+        nombre = ""
+    }
+  /*  fun buscarIdPorNombre(nombre: String): String{
         val nombreBusqueda =  hospitalRepository.buscarIdPorNombre(nombre)
         return nombreBusqueda
-    }
+    }*/
     private fun resetForm() {
         nombre = ""
         correo = ""

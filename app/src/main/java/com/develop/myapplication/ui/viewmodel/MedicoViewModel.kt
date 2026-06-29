@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.develop.myapplication.data.repository.hospital.HospitalRepository
 import com.develop.myapplication.data.repository.medico.MedicoRepository
 import com.develop.myapplication.ui.model.Medico
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MedicoViewModel @Inject constructor(
-    private val medicoRepository: MedicoRepository
+    private val medicoRepository: MedicoRepository,
+    private val hospitalRepositoryImpl: HospitalRepository
 ) : ViewModel() {
     var nombre      by mutableStateOf("")
     var correo      by mutableStateOf("")
@@ -24,7 +26,7 @@ class MedicoViewModel @Inject constructor(
     var password    by mutableStateOf("")
     var rut         by mutableStateOf("")
     var idHospital  by mutableStateOf("")
-
+    var hospital    by mutableStateOf("")
     val medicos: StateFlow<List<Medico>> = medicoRepository.obtenerTodosMedicos()
         .stateIn(
             scope = viewModelScope,
@@ -40,6 +42,7 @@ class MedicoViewModel @Inject constructor(
         }
     }
     fun insertarMedico() {
+
         viewModelScope.launch {
             val nuevoMedico = Medico(
                 id = 0,
@@ -48,9 +51,9 @@ class MedicoViewModel @Inject constructor(
                 celular = celular,
                 password = password,
                 rut = rut.toInt(),
-                idHospital = idHospital.toInt()
+                idHospital = hospitalRepositoryImpl.buscarPorNombre(hospital).id
             )
-            medicoRepository.insertarMedico(nuevoMedico)
+            medicoRepository.insertarMedicoBackend(nuevoMedico)
             resetForm()
         }
     }
@@ -60,5 +63,7 @@ class MedicoViewModel @Inject constructor(
         celular  = ""
         password = ""
         rut      = ""
+        hospital = ""
+        idHospital = ""
     }
 }

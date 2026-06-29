@@ -78,6 +78,4 @@ fun HistorialCard(item: HistorialItem) {
             Text("Médico: ${item.medico}")
         }
     }
-}
-
- */
+}*/

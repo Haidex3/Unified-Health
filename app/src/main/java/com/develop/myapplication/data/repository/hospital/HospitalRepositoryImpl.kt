@@ -28,8 +28,8 @@ class HospitalRepositoryImpl @Inject constructor(
     override suspend fun obtenerPorId(hospitalesIds: IntArray): List<Hospital> {
         return database.hospitalDao().obtenerPorId(hospitalesIds).map { hospitalEntity -> hospitalEntity.toDomain() }
     }
-    override suspend fun buscarPorNombre(nombreBusqueda: String): Hospital? {
-        return database.hospitalDao().buscarPorNombre(nombreBusqueda)?.toDomain()
+    override suspend fun buscarPorNombre(nombreBusqueda: String): Hospital {
+        return database.hospitalDao().buscarPorNombre(nombreBusqueda).toDomain()
     }
     override suspend fun insertarHospitalBackend(hospital: Hospital) {
         try {
@@ -40,7 +40,13 @@ class HospitalRepositoryImpl @Inject constructor(
             }
         }
     override suspend fun borrarHospital(hospital: Hospital) {
-        return database.hospitalDao().borrar(hospital.toEntity())
+        try {
+            database.hospitalDao().borrar(hospital.toEntity())
+            apiService.deleteHospital(hospital.id)
+        }catch (e: Exception){
+            Log.e("HospitalRepository","Error al borrar el hospiradl desde la api"+e.message, e)
+        }
+
     }
 
     override suspend fun sincronizarHospitales() {
