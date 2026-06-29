@@ -1,6 +1,5 @@
-package com.develop.myapplication.ui.components
+package com.develop.myapplication.ui.viewmodel
 
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -13,7 +12,6 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import java.lang.Thread.sleep
 import javax.inject.Inject
 
 
@@ -38,10 +36,14 @@ class HospitalFormViewModel @Inject constructor(
     }
 
     fun insertarHospital() {
+<<<<<<< HEAD:app/src/main/java/com/develop/myapplication/ui/components/HospitalViewModel.kt
         if (nombre.isBlank() || correo.isBlank() || telefono.isBlank() || ubicacion.isBlank()) {
             mensaje = "Completa todos los campos"
             return
         }
+=======
+
+>>>>>>> Cristian:app/src/main/java/com/develop/myapplication/ui/viewmodel/HospitalViewModel.kt
         viewModelScope.launch {
             hospitalRepository.insertarHospitalBackend(
                 Hospital(nombre = nombre, correo = correo, telefono = telefono, ubicacion = ubicacion)
@@ -51,7 +53,15 @@ class HospitalFormViewModel @Inject constructor(
             actualizarDatos()
         }
     }
-
+    suspend fun eliminarHospital(nombreHospital: String){
+        val hospitalBorar: Hospital = hospitalRepository.buscarPorNombre(nombreHospital)
+        hospitalRepository.borrarHospital(hospitalBorar)
+        nombre = ""
+    }
+  /*  fun buscarIdPorNombre(nombre: String): String{
+        val nombreBusqueda =  hospitalRepository.buscarIdPorNombre(nombre)
+        return nombreBusqueda
+    }*/
     private fun resetForm() {
         nombre = ""
         correo = ""

@@ -6,6 +6,7 @@ import com.develop.myapplication.data.local.entity.HospitalEntity
 import com.develop.myapplication.data.remote.dto.HospitalCreateDto
 import com.develop.myapplication.data.remote.dto.HospitalDto
 import com.develop.myapplication.data.remote.service.HospitalApiService
+import com.develop.myapplication.data.repository.hospital.HospitalRepository
 import com.develop.myapplication.ui.model.Hospital
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
@@ -27,8 +28,8 @@ class HospitalRepositoryImpl @Inject constructor(
     override suspend fun obtenerPorId(hospitalesIds: IntArray): List<Hospital> {
         return database.hospitalDao().obtenerPorId(hospitalesIds).map { hospitalEntity -> hospitalEntity.toDomain() }
     }
-    override suspend fun buscarPorNombre(nombreBusqueda: String): Hospital? {
-        return database.hospitalDao().buscarPorNombre(nombreBusqueda)?.toDomain()
+    override suspend fun buscarPorNombre(nombreBusqueda: String): Hospital {
+        return database.hospitalDao().buscarPorNombre(nombreBusqueda).toDomain()
     }
     override suspend fun insertarHospitalBackend(hospital: Hospital) {
         try {
@@ -39,7 +40,13 @@ class HospitalRepositoryImpl @Inject constructor(
             }
         }
     override suspend fun borrarHospital(hospital: Hospital) {
-        return database.hospitalDao().borrar(hospital.toEntity())
+        try {
+            database.hospitalDao().borrar(hospital.toEntity())
+            apiService.deleteHospital(hospital.id)
+        }catch (e: Exception){
+            Log.e("HospitalRepository","Error al borrar el hospiradl desde la api"+e.message, e)
+        }
+
     }
 
     override suspend fun sincronizarHospitales() {
@@ -50,6 +57,10 @@ class HospitalRepositoryImpl @Inject constructor(
         } catch (e: Exception) {
             Log.e("HospitalRepository", "Error al sincronizar Hospitales desde la API " + e.message, e)
         }
+    }
+    override fun buscarIdPorNombre(nombre: String): String
+    {
+        return database.hospitalDao().buscarIdPorNombre(nombre).toString()
     }
 }
 fun HospitalEntity.toDomain() = Hospital(

@@ -7,9 +7,9 @@ data class PacienteDto(
     @PrimaryKey val id: Int,
     @SerializedName("nombre") val nombre: String,
     @SerializedName("correo") val correo: String,
-    @SerializedName("RUT") val RUT: String,
+    @SerializedName("rut") val rut: Int,
     @SerializedName("sexo") val sexo: String,
-    @SerializedName("celular") val celular: Int,
+    @SerializedName("celular") val celular: String,
     @SerializedName("password") val password: String,
-    @SerializedName("hospital_id") val hospitalId: Int
-    )
+    @SerializedName("idHospital") val idHospital: Int
+)

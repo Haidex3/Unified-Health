@@ -2,16 +2,17 @@ package com.develop.myapplication.data
 
 import android.content.Context
 import com.develop.myapplication.data.local.AppDatabase
-import com.develop.myapplication.data.repository.hospital.HospitalRepository
-import com.develop.myapplication.data.repository.hospital.HospitalRepositoryImpl
-import com.develop.myapplication.di.NetworkModule
-
 import com.develop.myapplication.data.repository.horarioHora.HorarioHoraRepository
 import com.develop.myapplication.data.repository.horarioHora.HorarioHoraRepositoryImpl
+import com.develop.myapplication.data.repository.hospital.HospitalRepository
+import com.develop.myapplication.data.repository.hospital.HospitalRepositoryImpl
 import com.develop.myapplication.data.repository.medico.MedicoRepository
 import com.develop.myapplication.data.repository.medico.MedicoRepositoryImpl
 import com.develop.myapplication.data.repository.paciente.PacienteRepository
 import com.develop.myapplication.data.repository.paciente.PacienteRepositoryImpl
+
+import com.develop.myapplication.di.NetworkModule
+
 
 interface AppContainer {
     val hospitalRepository : HospitalRepository
@@ -28,8 +29,7 @@ class AppDataContainer(private val context: Context) : AppContainer {
     override val horarioHorasRepository: HorarioHoraRepository by lazy{
         HorarioHoraRepositoryImpl(
             AppDatabase.getDatabase(context),
-            NetworkModule.provideHorarioHoraApiService(retrofit = NetworkModule.provideRetrofit())
-        )
+            NetworkModule.provideHorarioHoraApiService(retrofit=NetworkModule.provideRetrofit()))
     }
     override val medicoRepository: MedicoRepository by lazy{
         MedicoRepositoryImpl(

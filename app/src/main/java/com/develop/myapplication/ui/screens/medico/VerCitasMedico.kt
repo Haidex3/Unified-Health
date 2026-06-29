@@ -1,41 +1,31 @@
 package com.develop.myapplication.ui.screens.medico
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.develop.myapplication.ui.model.components.CitaViewModel
-
+import com.develop.myapplication.ui.viewmodel.CitaFormViewModel
+/*
 @Composable
-fun CitasMedicoScreen(
-    navController: NavHostController? = null,
-    medicoId: Int,
-    viewModel: CitaViewModel = hiltViewModel()
+fun VerCitasMedicoScreen(
+    navController: NavHostController,
+    viewModel: CitaFormViewModel = hiltViewModel()
 ) {
     val citas by viewModel.citas.collectAsState()
 
-    LaunchedEffect(medicoId) {
-        viewModel.cargarCitasMedico(medicoId)
-    }
 
-    Scaffold { innerPadding ->
+
+    Scaffold {
+        innerPadding ->
         Column(modifier = Modifier.fillMaxSize().padding(innerPadding).padding(16.dp)) {
-            Text("Citas del médico ID $medicoId")
+            Text("Citas del mÃ©dico ID $medicoId")
             Button(onClick = { viewModel.cargarCitasMedico(medicoId) }, modifier = Modifier.fillMaxWidth()) {
                 Text("Actualizar lista de citas")
             }
@@ -55,4 +45,4 @@ fun CitasMedicoScreen(
             }
         }
     }
-}
+}*/

@@ -6,34 +6,32 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
-import com.develop.myapplication.data.local.entity.HospitalEntity
 import com.develop.myapplication.data.local.entity.MedicoEntity
 import kotlinx.coroutines.flow.Flow
 
-
 @Dao
 interface MedicoDao {
-    //Obtiene todos los Medicos de la tabla
+    //Obtiene todos los Hospitales de la tabla
     @Query("SELECT * FROM MedicoEntity")
     fun obtenerTodos(): Flow<List<MedicoEntity>>
 
-    //Obtiene un Medico por su ID
+    //Obtiene un Hospital por su ID
     @Query("SELECT * FROM MedicoEntity WHERE id = :id")
     suspend fun obtenerPorId(id: Int): MedicoEntity
 
-    //Obtiene varios Medicos dentro de una lista de id's
-    @Query("SELECT * FROM MedicoEntity WHERE id IN (:medicosIds)")
-    suspend fun obtenerPorId(medicosIds: IntArray): List<MedicoEntity>
+    //Obtiene varios Hospital dentro de una lista de id's
+    @Query("SELECT * FROM MedicoEntity WHERE id IN (:medicosID)")
+    suspend fun obtenerPorId(medicosID: IntArray): List<MedicoEntity>
 
-    //Obtiene un Medico por su nombre
+    //Obtiene un Hospital por su nombre
     @Query("SELECT * FROM MedicoEntity WHERE nombre = :nombreBusqueda LIMIT 1")
     suspend fun buscarPorNombre(nombreBusqueda: String): MedicoEntity
 
-    //Inserta un Medico
+    //Inserta un Hospital
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertarTodos(vararg medicos: MedicoEntity)
 
-    //Borra un Medico
+    //Borra un Hospital
     @Delete
     suspend fun borrar(medico: MedicoEntity)
 

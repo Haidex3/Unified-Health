@@ -49,28 +49,31 @@ class PacienteRepositoryImpl @Inject constructor(
         }
 
     }
+    override fun buscarPorRut(rut: Int): Paciente {
+        return database.pacienteDao().buscarPorRut(rut).toDomain()
+    }
 }
 
 fun PacienteEntity.toDomain() = Paciente(
-    id=this.id,
-    nombre=this.nombre ?: "Sin nombre",
-    correo=this.correo?:"Sin correo",
-    RUT=this.RUT?:"Sin RUT",
-    sexo=this.sexo?:"Sin sexo",
-    celular=this.celular?:0,
-    password=this.password?:"Sin contraseña",
-    hospitalId=this.hospitalId?:0
+    id         = this.id,
+    nombre     = this.nombre ?: "Sin nombre",
+    correo     = this.correo?:"Sin correo",
+    rut        = this.rut?:-1,
+    sexo       = this.sexo?:"Sin sexo",
+    celular    = this.celular?:"sin celular",
+    password   = this.password?:"Sin contraseña",
+    idHospital = this.idHospital
 )
 
 fun Paciente.toEntity() = PacienteEntity (
     id = this.id,
     nombre = this.nombre,
     correo = this.correo,
-    RUT = this.RUT,
+    rut = this.rut,
     sexo = this.sexo,
     celular = this.celular,
     password = this.password,
-    hospitalId = this.hospitalId
+    idHospital = this.idHospital
 )
 
 fun PacienteDto.toEntity(): PacienteEntity {
@@ -78,11 +81,11 @@ fun PacienteDto.toEntity(): PacienteEntity {
         id = this.id,
         nombre = this.nombre,
         correo = this.correo,
-        RUT = this.RUT,
+        rut  = this.rut,
         sexo = this.sexo,
         celular = this.celular,
         password = this.password,
-        hospitalId = this.hospitalId
+        idHospital = this.idHospital
     )
 }
 
@@ -90,10 +93,10 @@ fun Paciente.toCreateDto(): PacienteCreateDto{
     return PacienteCreateDto(
         nombre = this.nombre,
         correo = this.correo,
-        RUT = this.RUT,
+        rut = this.rut,
         sexo = this.sexo,
         celular = this.celular,
         password = this.password,
-        hospitalId = this.hospitalId
+        idHospital = this.idHospital
     )
 }

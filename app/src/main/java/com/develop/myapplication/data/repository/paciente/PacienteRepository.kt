@@ -17,4 +17,6 @@ interface PacienteRepository {
     suspend fun insertarPacienteBackend(paciente: Paciente)
 
     suspend fun sincronizarPacientes()
+
+    fun buscarPorRut(rut: Int):Paciente
 }

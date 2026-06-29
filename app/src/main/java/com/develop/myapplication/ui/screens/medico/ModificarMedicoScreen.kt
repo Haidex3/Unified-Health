@@ -1,5 +1,5 @@
 package com.develop.myapplication.ui.screens.medico
-
+/*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -37,7 +37,7 @@ fun ModificarMedicoScreen(
 
     Scaffold { paddingValues ->
         Column(modifier = Modifier.fillMaxSize().padding(paddingValues).padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text("Modificar médico")
+            Text("Modificar mÃ©dico")
             OutlinedTextField(value = nombre, onValueChange = { nombre = it }, label = { Text("Nombre") }, modifier = Modifier.fillMaxWidth())
             OutlinedTextField(value = correo, onValueChange = { correo = it }, label = { Text("Correo") }, modifier = Modifier.fillMaxWidth())
             OutlinedTextField(value = rut, onValueChange = { rut = it }, label = { Text("RUT") }, modifier = Modifier.fillMaxWidth())
@@ -52,4 +52,4 @@ fun ModificarMedicoScreen(
             }
         }
     }
-}
+}*/

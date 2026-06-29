@@ -43,5 +43,6 @@ interface HospitalDao {
         borrarTodos()
         insertarTodos(*hospitales.toTypedArray())
     }
-
+    @Query("select id from hospitalentity where nombre = :nombreBusqueda")
+    fun buscarIdPorNombre(nombreBusqueda: String): Int
 }

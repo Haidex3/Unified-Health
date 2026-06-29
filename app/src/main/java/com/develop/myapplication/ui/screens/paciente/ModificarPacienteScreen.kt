@@ -1,5 +1,5 @@
 package com.develop.myapplication.ui.screens.paciente
-
+/*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -74,3 +74,5 @@ fun ModificarPacienteScreen(
         }
     }
 }
+
+ */

@@ -26,7 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.develop.myapplication.ui.components.CitaViewModel
+import com.develop.myapplication.ui.model.components.CitaViewModel
 import com.develop.myapplication.ui.components.PacienteViewModel
 
 @Composable

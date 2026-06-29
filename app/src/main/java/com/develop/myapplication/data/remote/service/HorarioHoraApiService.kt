@@ -1,17 +1,21 @@
 package com.develop.myapplication.data.remote.service
 
-import HorarioHoraCreateDto
+
 import com.develop.myapplication.data.remote.dto.HorarioHoraDto
+import com.develop.myapplication.data.remote.dto.HorarioHoraCreateDto
+import com.develop.myapplication.data.remote.dto.HospitalDto
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
 
-interface HorarioHoraApiService{
-    @GET("horarioHoras")
-    suspend fun getHorarioHoras(): List<HorarioHoraDto>
-    @GET("horarioHoras/{id}")
-    suspend fun getHorarioHoraById(@Path("id") id: Int): HorarioHoraDto
-    @POST("horarioHoras")
-    suspend fun createHorarioHora(@Body horarioHora: HorarioHoraCreateDto): HorarioHoraDto
+interface HorarioHoraApiService {
+    @POST("horario_horas")
+    suspend fun createHorario(@Body horario: HorarioHoraCreateDto): HorarioHoraDto
+    @GET("Horario_horas")
+    suspend fun getHorario(): List<HorarioHoraDto>
+    @GET("actividades/{id}")
+    suspend fun getHorarioById(@Path("id") id: Int): HorarioHoraDto
+
 }
+

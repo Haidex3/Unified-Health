@@ -29,6 +29,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.develop.myapplication.data.model.Paciente
 import com.develop.myapplication.ui.components.PacienteViewModel
+import com.develop.myapplication.ui.model.Paciente
 
 @Composable
 fun RegistrarPacienteScreen(
@@ -151,9 +152,9 @@ fun RegistrarPacienteScreen(
                                     id = 0,
                                     nombre = nombre,
                                     correo = correo,
-                                    RUT = rut,
+                                    rut = rut,
                                     sexo = sexo,
-                                    celular = celularNumero,
+                                    celular = 1,
                                     password = password,
                                     hospitalId = hospitalIdNumero
                                 )

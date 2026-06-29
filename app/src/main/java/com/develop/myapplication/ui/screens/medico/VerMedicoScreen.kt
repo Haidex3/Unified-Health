@@ -1,4 +1,4 @@
-package com.develop.myapplication.ui.screens.hospital
+package com.develop.myapplication.ui.screens.medico
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,11 +17,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.develop.myapplication.ui.viewmodel.HospitalFormViewModel
+import com.develop.myapplication.ui.viewmodel.MedicoViewModel
 
 @Composable
-fun VerHospitalesScreen(formViewModel: HospitalFormViewModel = hiltViewModel()) {
-    val hospitales by formViewModel.hospitales.collectAsStateWithLifecycle()
+fun VerMedicoScreen(formViewModel: MedicoViewModel = hiltViewModel()) {
+    val medicos by formViewModel.medicos.collectAsStateWithLifecycle()
     Scaffold() { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
             LazyVerticalGrid(
@@ -31,7 +31,7 @@ fun VerHospitalesScreen(formViewModel: HospitalFormViewModel = hiltViewModel()) 
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 items(
-                    items = hospitales
+                    items = medicos
                 ) {
                     Card(
                     ) {
@@ -40,9 +40,10 @@ fun VerHospitalesScreen(formViewModel: HospitalFormViewModel = hiltViewModel()) 
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             Text(it.nombre)
+                            Text(it.rut.toString())
                             Text(it.correo)
-                            Text(it.telefono.toString())
-                            Text(it.ubicacion)
+                            Text(it.celular)
+
                         }
                     }
                 }

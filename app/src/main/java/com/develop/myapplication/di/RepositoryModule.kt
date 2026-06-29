@@ -21,24 +21,32 @@ import javax.inject.Singleton
 abstract class RepositoryModule {
     @Binds
     @Singleton
-    abstract fun bindHospitalRepository(impl: HospitalRepositoryImpl): HospitalRepository
+    abstract fun bindHospitalRepository(
+        hospitalRepositoryImpl: HospitalRepositoryImpl
+    ): HospitalRepository
 
     @Binds
     @Singleton
-    abstract fun bindMedicoRepository(impl: MedicoRepositoryImpl): MedicoRepository
+    abstract fun bindMedicoRepository(
+        medicoRepositoryImpl: MedicoRepositoryImpl
+    ): MedicoRepository
 
     @Binds
     @Singleton
-    abstract fun bindPacienteRepository(impl: PacienteRepositoryImpl): PacienteRepository
+    abstract fun bindPacienteRepository(
+        pacienteRepositoryImpl: PacienteRepositoryImpl
+    ): PacienteRepository
 
     @Binds
     @Singleton
-    abstract fun bindHorarioHoraRepository(impl: HorarioHoraRepositoryImpl): HorarioHoraRepository
+    abstract fun bindHorario_horasRepository(
+        horario_horasRepositoryImpl: HorarioHoraRepositoryImpl
+    ): HorarioHoraRepository
 
     @Binds
     @Singleton
-    abstract fun bindCitaRepository(impl: CitaRepositoryImpl): CitaRepository
+    abstract fun bindCitasRepository(
+        citaRepositoryImpl: CitaRepositoryImpl
+    ): CitaRepository
+
 }
-
-
-

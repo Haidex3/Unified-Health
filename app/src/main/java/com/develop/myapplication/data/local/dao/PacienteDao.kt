@@ -11,27 +11,27 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PacienteDao {
-    //Obtiene todos los Pacientes de la tabla
+    //Obtiene todos los Hospitales de la tabla
     @Query("SELECT * FROM PacienteEntity")
     fun obtenerTodos(): Flow<List<PacienteEntity>>
 
-    //Obtiene un Paciente por su ID
+    //Obtiene un Hospital por su ID
     @Query("SELECT * FROM PacienteEntity WHERE id = :id")
     suspend fun obtenerPorId(id: Int): PacienteEntity
 
-    //Obtiene varios Pacientes dentro de una lista de id's
-    @Query("SELECT * FROM PacienteEntity WHERE id IN (:pacientesIds)")
-    suspend fun obtenerPorId(pacientesIds: IntArray): List<PacienteEntity>
+    //Obtiene varios Hospital dentro de una lista de id's
+    @Query("SELECT * FROM PacienteEntity WHERE id IN (:pacientesId)")
+    suspend fun obtenerPorId(pacientesId: IntArray): List<PacienteEntity>
 
-    //Obtiene un Paciente por su nombre
+    //Obtiene un Hospital por su nombre
     @Query("SELECT * FROM PacienteEntity WHERE nombre = :nombreBusqueda LIMIT 1")
     suspend fun buscarPorNombre(nombreBusqueda: String): PacienteEntity
 
-    //Inserta un Paciente
+    //Inserta un Hospital
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertarTodos(vararg pacientes: PacienteEntity)
+    suspend fun insertarTodos(vararg paacientes: PacienteEntity)
 
-    //Borra un Paciente
+    //Borra un Hospital
     @Delete
     suspend fun borrar(paciente: PacienteEntity)
 
@@ -43,5 +43,7 @@ interface PacienteDao {
         borrarTodos()
         insertarTodos(*pacientes.toTypedArray())
     }
+    @Query("SELECT * FROM PacienteEntity WHERE rut = :rut")
+    fun buscarPorRut(rut: Int): PacienteEntity
 
 }
