@@ -7,21 +7,21 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import com.develop.myapplication.data.local.entity.CitaEntity
-import com.develop.myapplication.data.local.entity.HospitalEntity
 import kotlinx.coroutines.flow.Flow
-
 
 @Dao
 interface CitaDao {
+    //Obtiene todos los Hospitales de la tabla
     @Query("SELECT * FROM CitaEntity")
     fun obtenerTodos(): Flow<List<CitaEntity>>
 
+    //Obtiene un Hospital por su ID
     @Query("SELECT * FROM CitaEntity WHERE id = :id")
     suspend fun obtenerPorId(id: Int): CitaEntity
 
     //Obtiene varios Hospital dentro de una lista de id's
-    @Query("SELECT * FROM CitaEntity WHERE id IN (:citaIds)")
-    suspend fun obtenerPorId(citaIds: IntArray): List<CitaEntity>
+    @Query("SELECT * FROM CitaEntity WHERE id IN (:citasId)")
+    suspend fun obtenerPorId(citasId: IntArray): List<CitaEntity>
 
     //Inserta un Hospital
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -39,6 +39,5 @@ interface CitaDao {
         borrarTodos()
         insertarTodos(*citas.toTypedArray())
     }
-
 
 }

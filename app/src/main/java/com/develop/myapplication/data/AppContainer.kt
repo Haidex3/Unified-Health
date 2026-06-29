@@ -4,8 +4,8 @@ import android.content.Context
 import com.develop.myapplication.data.local.AppDatabase
 import com.develop.myapplication.data.repository.Cita.CitaRepository
 import com.develop.myapplication.data.repository.Cita.CitaRepositoryImpl
-import com.develop.myapplication.data.repository.Horario_horas.Horario_horasRepository
-import com.develop.myapplication.data.repository.Horario_horas.Horario_horasRepositoryImpl
+import com.develop.myapplication.data.repository.horarioHora.HorarioHoraRepository
+import com.develop.myapplication.data.repository.horarioHora.HorarioHoraRepositoryImpl
 import com.develop.myapplication.data.repository.hospital.HospitalRepository
 import com.develop.myapplication.data.repository.hospital.HospitalRepositoryImpl
 import com.develop.myapplication.data.repository.medico.MedicoRepository
@@ -15,25 +15,24 @@ import com.develop.myapplication.data.repository.paciente.PacienteRepositoryImpl
 
 import com.develop.myapplication.di.NetworkModule
 
+
 interface AppContainer {
     val hospitalRepository : HospitalRepository
-    val horario_HorasRepository : Horario_horasRepository
+    val horarioHorasRepository : HorarioHoraRepository
     val medicoRepository : MedicoRepository
     val pacienteRepository : PacienteRepository
-
     val citaRepository : CitaRepository
-
 }
 class AppDataContainer(private val context: Context) : AppContainer {
     override val hospitalRepository: HospitalRepository by lazy {
         HospitalRepositoryImpl(
             AppDatabase.getDatabase(context),
-        NetworkModule.provideHospitalApiService(NetworkModule.provideRetrofit()))
+            NetworkModule.provideHospitalApiService(NetworkModule.provideRetrofit()))
     }
-    override val horario_HorasRepository: Horario_horasRepository by lazy{
-        Horario_horasRepositoryImpl(
+    override val horarioHorasRepository: HorarioHoraRepository by lazy{
+        HorarioHoraRepositoryImpl(
             AppDatabase.getDatabase(context),
-            NetworkModule.provideHorario_citasApiService(retrofit=NetworkModule.provideRetrofit()))
+            NetworkModule.provideHorarioHoraApiService(retrofit=NetworkModule.provideRetrofit()))
     }
     override val medicoRepository: MedicoRepository by lazy{
         MedicoRepositoryImpl(
@@ -53,5 +52,4 @@ class AppDataContainer(private val context: Context) : AppContainer {
             NetworkModule.provideCitaApiService(retrofit = NetworkModule.provideRetrofit())
         )
     }
-
 }

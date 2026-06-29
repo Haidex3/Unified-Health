@@ -1,6 +1,5 @@
 package com.develop.myapplication.data.remote.service
 
-import com.develop.myapplication.data.remote.dto.HospitalDto
 import com.develop.myapplication.data.remote.dto.MedicoCreateDto
 import com.develop.myapplication.data.remote.dto.MedicoDto
 import retrofit2.http.Body

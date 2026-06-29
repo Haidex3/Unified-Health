@@ -6,6 +6,7 @@ import com.develop.myapplication.data.local.entity.HospitalEntity
 import com.develop.myapplication.data.remote.dto.HospitalCreateDto
 import com.develop.myapplication.data.remote.dto.HospitalDto
 import com.develop.myapplication.data.remote.service.HospitalApiService
+import com.develop.myapplication.data.repository.hospital.HospitalRepository
 import com.develop.myapplication.ui.model.Hospital
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow

@@ -51,44 +51,44 @@ class MedicoRepositoryImpl @Inject constructor(
 }
 
 fun MedicoEntity.toDomain() = Medico(
-    id=this.id,
-    nombre=this.nombre ?: "Sin nombre",
-    correo=this.correo?:"Sin correo",
-    RUT=this.RUT?:"Sin RUT",
-    password=this.password?:"Sin contraseña",
-    celular=this.celular?:0,
-    hospitalId=this.hospitalId?:0
+    id      = this.id,
+    nombre  = this.nombre?:"sin nombre",
+    correo  = this.correo?:"sin correo",
+    celular = this.celular?:"sin celular",
+    password = this.password?:"sin pasword",
+    rut     = this.rut?:-1,
+    idHospital = this.idHospital?:-1
 )
 
 fun Medico.toEntity() = MedicoEntity (
-    id = this.id ?: 0,
-    nombre = this.nombre,
-    correo = this.correo,
-    RUT = this.RUT,
+    id       = this.id ?: 0,
+    nombre   = this.nombre,
+    correo   = this.correo,
+    celular  = this.celular,
     password = this.password,
-    celular = this.celular,
-    hospitalId = this.hospitalId
+    rut      = this.rut,
+    idHospital = this.idHospital
 )
 
 fun MedicoDto.toEntity(): MedicoEntity {
     return MedicoEntity(
         id = this.id,
-        nombre = this.nombre,
-        correo = this.correo,
-        RUT = this.rut,
+        nombre   = this.nombre,
+        correo   = this.correo,
+        celular  = this.celular,
         password = this.password,
-        celular = this.celular,
-        hospitalId = this.hospitalId
+        rut      = this.rut,
+        idHospital = this.idHospital
     )
 }
 
 fun Medico.toCreateDto(): MedicoCreateDto{
     return MedicoCreateDto(
-        nombre = this.nombre,
-        correo = this.correo,
-        rut = this.RUT,
+        nombre   = this.nombre,
+        correo   = this.correo,
+        celular  = this.celular,
         password = this.password,
-        celular = this.celular,
-        hospitalId = this.hospitalId
+        rut      = this.rut,
+        idHospital = this.idHospital
     )
 }

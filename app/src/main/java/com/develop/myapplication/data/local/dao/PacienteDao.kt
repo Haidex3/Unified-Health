@@ -11,27 +11,21 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PacienteDao {
-    //Obtiene todos los Pacientes de la tabla
     @Query("SELECT * FROM PacienteEntity")
     fun obtenerTodos(): Flow<List<PacienteEntity>>
 
-    //Obtiene un Paciente por su ID
     @Query("SELECT * FROM PacienteEntity WHERE id = :id")
     suspend fun obtenerPorId(id: Int): PacienteEntity
 
-    //Obtiene varios Pacientes dentro de una lista de id's
-    @Query("SELECT * FROM PacienteEntity WHERE id IN (:pacientesIds)")
-    suspend fun obtenerPorId(pacientesIds: IntArray): List<PacienteEntity>
+    @Query("SELECT * FROM PacienteEntity WHERE id IN (:pacientesId)")
+    suspend fun obtenerPorId(pacientesId: IntArray): List<PacienteEntity>
 
-    //Obtiene un Paciente por su nombre
     @Query("SELECT * FROM PacienteEntity WHERE nombre = :nombreBusqueda LIMIT 1")
     suspend fun buscarPorNombre(nombreBusqueda: String): PacienteEntity
 
-    //Inserta un Paciente
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertarTodos(vararg pacientes: PacienteEntity)
+    suspend fun insertarTodos(vararg paacientes: PacienteEntity)
 
-    //Borra un Paciente
     @Delete
     suspend fun borrar(paciente: PacienteEntity)
 
