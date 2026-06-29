@@ -17,6 +17,7 @@ import java.lang.Thread.sleep
 import javax.inject.Inject
 
 
+
 @HiltViewModel
 class HospitalFormViewModel @Inject constructor(
     private val hospitalRepository: HospitalRepository
@@ -25,34 +26,29 @@ class HospitalFormViewModel @Inject constructor(
     var correo by mutableStateOf("")
     var telefono by mutableStateOf("")
     var ubicacion by mutableStateOf("")
+    var mensaje by mutableStateOf<String?>(null)
+
     val hospitales: StateFlow<List<Hospital>> = hospitalRepository.obtenerTodosHospitales()
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = emptyList()
-        )
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    init {
-        actualizarDatos()
+    init { actualizarDatos() }
+
+    fun actualizarDatos() {
+        viewModelScope.launch { hospitalRepository.sincronizarHospitales() }
     }
-    fun actualizarDatos(){
-            viewModelScope.launch {
-                hospitalRepository.sincronizarHospitales()
-            }
-    }
+
     fun insertarHospital() {
-        if (telefono.isBlank()) return
-
+        if (nombre.isBlank() || correo.isBlank() || telefono.isBlank() || ubicacion.isBlank()) {
+            mensaje = "Completa todos los campos"
+            return
+        }
         viewModelScope.launch {
-            val nuevoHospital = Hospital(
-                id = 0,
-                nombre = nombre,
-                correo = correo,
-                telefono = telefono.toInt(),
-                ubicacion = ubicacion
+            hospitalRepository.insertarHospitalBackend(
+                Hospital(nombre = nombre, correo = correo, telefono = telefono, ubicacion = ubicacion)
             )
-            hospitalRepository.insertarHospitalBackend(nuevoHospital)
+            mensaje = "Hospital guardado"
             resetForm()
+            actualizarDatos()
         }
     }
 

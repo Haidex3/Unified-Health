@@ -1,47 +1,65 @@
 package com.develop.myapplication.ui.screens.medico
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.develop.myapplication.di.DataBaseModule
 import com.develop.myapplication.ui.model.Medico
+import com.develop.myapplication.ui.navigation.VerHospitales
 import kotlinx.coroutines.launch
-/*
-@Composable
-fun CrearMedicoScreen() {
-    var nombre by remember { mutableStateOf("") }
-    var correo by remember { mutableStateOf("") }
-    var rut by remember { mutableStateOf("") }
-    var celular by remember { mutableStateOf("") }
-    var hospitalId by remember { mutableStateOf("") }
-    val scope = rememberCoroutineScope()
 
-    Column(modifier = Modifier.padding(16.dp)) {
-        Text("Crear Medico")
-        OutlinedTextField(value = nombre, onValueChange = { nombre = it }, label = { Text("Nombre") })
-        OutlinedTextField(value = correo, onValueChange = { correo = it }, label = { Text("Correo") })
-        OutlinedTextField(value = rut, onValueChange = { rut = it }, label = { Text("RUT") })
-        OutlinedTextField(value = celular, onValueChange = { celular = it }, label = { Text("Celular") })
-        OutlinedTextField(value = hospitalId, onValueChange = { hospitalId = it }, label = { Text("ID Hospital") })
-        Button(onClick = {
-            scope.launch {
-                try {
-                    DataBaseModule.api.createDoctor(
-                        Medico(nombre = nombre, correo = correo, rut = rut,
-                            celular = celular, password = "", hospital_id = hospitalId.toIntOrNull() ?: 0)
-                    )
-                } catch (e: Exception) { /* mostrar error */ }
-            }
-        }) { Text("Guardar Doctor") }
+
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import com.develop.myapplication.ui.components.MedicoViewModel
+
+@Composable
+fun CrearMedicoScreen(
+    navController: NavHostController? = null,
+    viewModel: MedicoViewModel = hiltViewModel()
+) {
+    Scaffold { innerPadding ->
+        Column(modifier = Modifier.fillMaxSize().padding(innerPadding).padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+            Text("Crear médico")
+            Spacer(Modifier.height(12.dp))
+            OutlinedTextField(value = viewModel.nombre, onValueChange = { viewModel.nombre = it }, label = { Text("Nombre") }, modifier = Modifier.fillMaxWidth())
+            OutlinedTextField(value = viewModel.correo, onValueChange = { viewModel.correo = it }, label = { Text("Correo") }, modifier = Modifier.fillMaxWidth())
+            OutlinedTextField(value = viewModel.rut, onValueChange = { viewModel.rut = it }, label = { Text("RUT") }, modifier = Modifier.fillMaxWidth())
+            OutlinedTextField(value = viewModel.password, onValueChange = { viewModel.password = it }, label = { Text("Contraseña") }, modifier = Modifier.fillMaxWidth())
+            OutlinedTextField(value = viewModel.celular, onValueChange = { viewModel.celular = it }, label = { Text("Celular") }, modifier = Modifier.fillMaxWidth())
+            OutlinedTextField(value = viewModel.hospitalId, onValueChange = { viewModel.hospitalId = it.filter(Char::isDigit) }, label = { Text("Hospital ID") }, modifier = Modifier.fillMaxWidth())
+            Spacer(Modifier.height(16.dp))
+            Button(onClick = { viewModel.insertarMedico() }, modifier = Modifier.fillMaxWidth()) { Text("Guardar médico") }
+            viewModel.mensaje?.let { Text(it) }
+        }
     }
-}*/
+}

@@ -25,37 +25,30 @@ import androidx.compose.runtime.setValue
 
 @Composable
 fun ModificarMedicoScreen(
-    medico: Medico, // Recibe obligatoriamente el médico que se va a editar
+    medico: Medico,
     onActualizarClick: (Medico) -> Unit,
     onCancelarClick: () -> Unit
 ) {
     var nombre by remember { mutableStateOf(medico.nombre) }
     var correo by remember { mutableStateOf(medico.correo) }
-    var RUT by remember { mutableStateOf(medico.RUT) }
-    var password by remember { mutableStateOf(medico.password) }
+    var rut by remember { mutableStateOf(medico.RUT) }
     var celular by remember { mutableStateOf(medico.celular) }
-    var hospitalId by remember { mutableStateOf(medico.hospitalId) }
+    var hospitalId by remember { mutableStateOf(medico.hospitalId.toString()) }
 
-    Scaffold(
-        topBar = { TopAppBar(title = { Text("Modificar Datos del Médico") }) }
-    ) { paddingValues ->
-        Column(
-            modifier = Modifier.fillMaxSize().padding(paddingValues).padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            OutlinedTextField(value = nombre, onValueChange = { nombre = it }, label = { Text("Nombre del Médico") }, modifier = Modifier.fillMaxWidth())
-            OutlinedTextField(value = correo, onValueChange = { correo = it }, label = { Text("Especialidad") }, modifier = Modifier.fillMaxWidth())
-            OutlinedTextField(value = RUT, onValueChange = { RUT = it }, label = { Text("Nº Licencia / Colegiatura") }, modifier = Modifier.fillMaxWidth())
-            OutlinedTextField(value = password, onValueChange = { password = it }, label = { Text("Correo Electrónico") }, modifier = Modifier.fillMaxWidth())
+    Scaffold { paddingValues ->
+        Column(modifier = Modifier.fillMaxSize().padding(paddingValues).padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Text("Modificar médico")
+            OutlinedTextField(value = nombre, onValueChange = { nombre = it }, label = { Text("Nombre") }, modifier = Modifier.fillMaxWidth())
+            OutlinedTextField(value = correo, onValueChange = { correo = it }, label = { Text("Correo") }, modifier = Modifier.fillMaxWidth())
+            OutlinedTextField(value = rut, onValueChange = { rut = it }, label = { Text("RUT") }, modifier = Modifier.fillMaxWidth())
             OutlinedTextField(value = celular, onValueChange = { celular = it }, label = { Text("Celular") }, modifier = Modifier.fillMaxWidth())
-            OutlinedTextField(value = hospitalId.toString(), onValueChange = { hospitalId = it.toInt() }, label = { Text("Hospital ID") }, modifier = Modifier.fillMaxWidth())
-
-
-
-            Spacer(modifier = Modifier.height(16.dp))
+            OutlinedTextField(value = hospitalId, onValueChange = { hospitalId = it.filter(Char::isDigit) }, label = { Text("Hospital ID") }, modifier = Modifier.fillMaxWidth())
             Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                 OutlinedButton(onClick = onCancelarClick, modifier = Modifier.weight(1f)) { Text("Cancelar") }
-                Button(onClick = { onActualizarClick(medico.copy(nombre = nombre, correo = correo, RUT = RUT, password = password, celular = celular.toInt(), hospitalId = hospitalId)) }, modifier = Modifier.weight(1f)) { Text("Actualizar") }
+                Button(
+                    onClick = { onActualizarClick(medico.copy(nombre = nombre, correo = correo, RUT = rut, celular = celular, hospitalId = hospitalId.toIntOrNull() ?: medico.hospitalId)) },
+                    modifier = Modifier.weight(1f)
+                ) { Text("Actualizar") }
             }
         }
     }

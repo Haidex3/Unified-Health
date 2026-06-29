@@ -14,107 +14,63 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-/*
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.develop.myapplication.data.repository.medico.MedicoRepository
+import com.develop.myapplication.ui.model.Medico
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
+
 @HiltViewModel
-class FormViewModel @Inject constructor(
-    private val hospitalRepository: HospitalRepository
+class MedicoViewModel @Inject constructor(
+    private val medicoRepository: MedicoRepository
 ) : ViewModel() {
     var nombre by mutableStateOf("")
     var correo by mutableStateOf("")
-    var telefono by mutableStateOf("")
-    var ubicacion by mutableStateOf("")
+    var rut by mutableStateOf("")
+    var password by mutableStateOf("")
+    var celular by mutableStateOf("")
+    var hospitalId by mutableStateOf("")
+    var mensaje by mutableStateOf<String?>(null)
 
-    val hospitales: StateFlow<List<Hospital>> = hospitalRepository.obtenerTodosHospitales()
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000), // Se apaga 5s después de cerrar la pantalla
-            initialValue = emptyList()
-        )
-    init {
-        actualizarDatos()
+    val medicos: StateFlow<List<Medico>> = medicoRepository.obtenerTodosMedicos()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+
+    init { actualizarDatos() }
+
+    fun actualizarDatos() {
+        viewModelScope.launch { medicoRepository.sincronizarMedicos() }
     }
-    fun actualizarDatos(){
-        viewModelScope.launch {
-            hospitalRepository.sincronizarHospitales()
+
+    fun insertarMedico() {
+        val hospital = hospitalId.toIntOrNull()
+        if (nombre.isBlank() || correo.isBlank() || rut.isBlank() || password.isBlank() || celular.isBlank() || hospital == null) {
+            mensaje = "Completa todos los campos. Hospital ID debe ser número."
+            return
         }
-    }
-    fun insertarHospital() {
         viewModelScope.launch {
-            val nuevoHospital = Hospital(
-                id = 0, // Room lo autogenera
-                nombre = nombre,
-                correo = correo,
-                telefono = telefono.toInt(),
-                ubicacion = ubicacion
+            medicoRepository.insertarMedicoBackend(
+                Medico(nombre = nombre, correo = correo, RUT = rut, password = password, celular = celular, hospitalId = hospital)
             )
-            hospitalRepository.insertarHospital(nuevoHospital)
+            mensaje = "Médico guardado"
             resetForm()
+            actualizarDatos()
         }
     }
+
     private fun resetForm() {
         nombre = ""
         correo = ""
-        telefono = ""
-        ubicacion = ""
+        rut = ""
+        password = ""
+        celular = ""
+        hospitalId = ""
     }
 }
-
-
-/*
-data class DoctorUiState(
-    val isLoading: Boolean = false,
-    val mensaje: String? = null,
-    val error: String? = null
-)
-
-class MedicoViewModel : ViewModel() {
-
-    var uiState by mutableStateOf(DoctorUiState())
-        private set
-
-    fun registrarMedico(
-        nombre: String,
-        correo: String,
-        password: String,
-        rut: String,
-        celular: String,
-        hospitalId: Int
-    ) {
-        viewModelScope.launch {
-
-            uiState = uiState.copy(isLoading = true)
-
-            try {
-                val medico = Medico(
-                    nombre = nombre,
-                    correo = correo,
-                    password = password,
-                    rut = rut,
-                    celular = celular,
-                    hospital_id = hospitalId
-                )
-
-
-                DataBaseModule.api.createDoctor(medico)
-
-                uiState = uiState.copy(
-                    isLoading = false,
-                    mensaje = "Doctor creado correctamente"
-                )
-
-            } catch (e: Exception) {
-                uiState = uiState.copy(
-                    isLoading = false,
-                    error = "Error al crear doctor"
-                )
-            }
-        }
-    }
-
-    fun limpiarMensaje() {
-        uiState = uiState.copy(
-            mensaje = null,
-            error = null
-        )
-    }
-}*/

@@ -17,12 +17,15 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.develop.myapplication.ui.navigation.CrearHospital
+import com.develop.myapplication.ui.navigation.CrearMedico
 import com.develop.myapplication.ui.navigation.InicioSesion
+import com.develop.myapplication.ui.navigation.RegistrarPaciente
+import com.develop.myapplication.ui.navigation.VerHospitales
+
 
 @Composable
-fun HomeScreen(navController: NavHostController){
-    Scaffold(modifier = Modifier.fillMaxSize(),
-    ) {innerPadding ->
+fun HomeScreen(navController: NavHostController) {
+    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
         Column(
             modifier = Modifier
                 .padding(innerPadding)
@@ -30,26 +33,26 @@ fun HomeScreen(navController: NavHostController){
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = "Seleccione su metodo de ingreso"
-            )
-            Spacer(Modifier.height(50.dp))
+            Text(text = "Unified Health")
+            Spacer(Modifier.height(24.dp))
             Button(
-                onClick = {navController.navigate(InicioSesion("Medico"))},
-                modifier = Modifier.fillMaxWidth().height(100.dp),
+                onClick = { navController.navigate(InicioSesion("Medico")) },
+                modifier = Modifier.fillMaxWidth().height(80.dp),
                 shape = RectangleShape
-            ){
-                Text("Medico")
-            }
-            Spacer(Modifier.height(50.dp))
+            ) { Text("Ingresar como médico") }
+            Spacer(Modifier.height(16.dp))
             Button(
-                onClick = {navController.navigate(InicioSesion("Paciente"))},
-                modifier = Modifier.fillMaxWidth().height(100.dp),
+                onClick = { navController.navigate(InicioSesion("Paciente")) },
+                modifier = Modifier.fillMaxWidth().height(80.dp),
                 shape = RectangleShape
-            ){
-                Text("Paciente")
-            }
+            ) { Text("Ingresar como paciente") }
+            Spacer(Modifier.height(16.dp))
+            Button(onClick = { navController.navigate(CrearHospital) }, modifier = Modifier.fillMaxWidth()) { Text("Crear hospital") }
+            Button(onClick = { navController.navigate(VerHospitales) }, modifier = Modifier.fillMaxWidth()) { Text("Ver hospitales") }
+            Button(onClick = { navController.navigate(CrearMedico) }, modifier = Modifier.fillMaxWidth()) { Text("Crear médico") }
+            Button(onClick = { navController.navigate(RegistrarPaciente) }, modifier = Modifier.fillMaxWidth()) { Text("Registrar paciente") }
         }
     }
 }
+
 

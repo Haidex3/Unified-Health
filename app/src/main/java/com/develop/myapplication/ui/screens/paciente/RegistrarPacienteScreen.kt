@@ -19,41 +19,30 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.develop.myapplication.ui.model.Paciente
+import androidx.compose.ui.Alignment
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import com.develop.myapplication.ui.components.PacienteViewModel
 
 @Composable
 fun RegistrarPacienteScreen(
-    onGuardarClick: (Paciente) -> Unit,
-    onCancelarClick: () -> Unit
+    navController: NavHostController? = null,
+    viewModel: PacienteViewModel = hiltViewModel()
 ) {
-    var nombre by remember { mutableStateOf("") }
-    var correo by remember { mutableStateOf("") }
-    var RUT by remember { mutableStateOf("") }
-    var sexo by remember { mutableStateOf("") }
-    var celular by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var hospitalId by remember { mutableStateOf(0) }
-
-    Scaffold(
-        topBar = { TopAppBar(title = { Text("Registrar Nuevo Paciente") }) }
-    ) { paddingValues ->
-        Column(
-            modifier = Modifier.fillMaxSize().padding(paddingValues).padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            OutlinedTextField(value = nombre, onValueChange = { nombre = it }, label = { Text("Nombre Completo") }, modifier = Modifier.fillMaxWidth())
-            OutlinedTextField(value = correo, onValueChange = { correo = it }, label = { Text("Correo Electrónico") }, modifier = Modifier.fillMaxWidth())
-            OutlinedTextField(value = RUT, onValueChange = { RUT = it }, label = { Text("RUT") }, modifier = Modifier.fillMaxWidth())
-            OutlinedTextField(value = sexo, onValueChange = { sexo = it }, label = { Text("Sexo Médico") }, modifier = Modifier.fillMaxWidth(), minLines = 3)
-            OutlinedTextField(value = celular, onValueChange = { celular = it }, label = { Text("Celular") }, modifier = Modifier.fillMaxWidth())
-            OutlinedTextField(value = password, onValueChange = { password = it }, label = { Text("Contraseña") }, modifier = Modifier.fillMaxWidth())
-            OutlinedTextField(value = hospitalId.toString(), onValueChange = { hospitalId = it.toInt() }, label = { Text("Hospital ID") }, modifier = Modifier.fillMaxWidth())
-
-            Spacer(modifier = Modifier.height(16.dp))
-            Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                OutlinedButton(onClick = onCancelarClick, modifier = Modifier.weight(1f)) { Text("Cancelar") }
-                Button(onClick = { onGuardarClick(Paciente(nombre = nombre, correo = correo, RUT = RUT, sexo = sexo, celular = celular.toInt(), password = password, hospitalId = hospitalId)) }, modifier = Modifier.weight(1f)) { Text("Guardar") }
-            }
+    Scaffold { innerPadding ->
+        Column(modifier = Modifier.fillMaxSize().padding(innerPadding).padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+            Text("Registrar paciente")
+            Spacer(Modifier.height(12.dp))
+            OutlinedTextField(value = viewModel.nombre, onValueChange = { viewModel.nombre = it }, label = { Text("Nombre") }, modifier = Modifier.fillMaxWidth())
+            OutlinedTextField(value = viewModel.correo, onValueChange = { viewModel.correo = it }, label = { Text("Correo") }, modifier = Modifier.fillMaxWidth())
+            OutlinedTextField(value = viewModel.rut, onValueChange = { viewModel.rut = it }, label = { Text("RUT") }, modifier = Modifier.fillMaxWidth())
+            OutlinedTextField(value = viewModel.sexo, onValueChange = { viewModel.sexo = it }, label = { Text("Sexo") }, modifier = Modifier.fillMaxWidth())
+            OutlinedTextField(value = viewModel.celular, onValueChange = { viewModel.celular = it }, label = { Text("Celular") }, modifier = Modifier.fillMaxWidth())
+            OutlinedTextField(value = viewModel.password, onValueChange = { viewModel.password = it }, label = { Text("Contraseña") }, modifier = Modifier.fillMaxWidth())
+            OutlinedTextField(value = viewModel.hospitalId, onValueChange = { viewModel.hospitalId = it.filter(Char::isDigit) }, label = { Text("Hospital ID") }, modifier = Modifier.fillMaxWidth())
+            Spacer(Modifier.height(16.dp))
+            Button(onClick = { viewModel.insertarPaciente() }, modifier = Modifier.fillMaxWidth()) { Text("Guardar paciente") }
+            viewModel.mensaje?.let { Text(it) }
         }
     }
 }
