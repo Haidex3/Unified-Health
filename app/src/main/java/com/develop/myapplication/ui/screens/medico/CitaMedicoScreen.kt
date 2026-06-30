@@ -19,36 +19,68 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.develop.myapplication.ui.model.components.CitaViewModel
+import com.develop.myapplication.ui.viewmodel.CitaFormViewModel
+import com.develop.myapplication.ui.viewmodel.HorarioHoraFormViewModel
+import com.develop.myapplication.ui.viewmodel.PacienteViewModel
 
 @Composable
 fun CitasMedicoScreen(
     navController: NavHostController? = null,
     medicoId: Int,
-    viewModel: CitaViewModel = hiltViewModel()
+    citaViewModel: CitaFormViewModel = hiltViewModel(),
+    horarioHoraViewModel: HorarioHoraFormViewModel = hiltViewModel(),
+    pacienteViewModel: PacienteViewModel = hiltViewModel()
 ) {
-    val citas by viewModel.citas.collectAsState()
+    val citas by citaViewModel.citas.collectAsState()
+    val horarios by horarioHoraViewModel.horarios.collectAsState()
+    val pacientes by pacienteViewModel.pacientes.collectAsState()
+
+
+    val horariosDelMedico = horarios.filter { it.idMedico == medicoId }
+    val idsHorariosDelMedico = horariosDelMedico.map { it.id }.toSet()
+
+
+    val citasDelMedico = citas.filter { it.idHorarioHora in idsHorariosDelMedico }
+
+    fun actualizar() {
+        citaViewModel.actualizarDatos()
+        horarioHoraViewModel.actualizarDatos()
+        pacienteViewModel.actualizarDatos()
+    }
 
     LaunchedEffect(medicoId) {
-        viewModel.cargarCitasMedico(medicoId)
+        actualizar()
     }
 
     Scaffold { innerPadding ->
-        Column(modifier = Modifier.fillMaxSize().padding(innerPadding).padding(16.dp)) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .padding(16.dp)
+        ) {
             Text("Citas del médico ID $medicoId")
-            Button(onClick = { viewModel.cargarCitasMedico(medicoId) }, modifier = Modifier.fillMaxWidth()) {
+            Button(
+                onClick = { actualizar() },
+                modifier = Modifier.fillMaxWidth()
+            ) {
                 Text("Actualizar lista de citas")
             }
-            LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                items(citas) { cita ->
-                    Card(modifier = Modifier.fillMaxWidth()) {
-                        Column(modifier = Modifier.padding(16.dp)) {
-                            Text("Cita ID: ${cita.id}")
-                            Text("Fecha: ${cita.fecha}")
-                            Text("Hora: ${cita.hora ?: "Sin hora"}")
-                            Text("Paciente: ${cita.pacienteNombre ?: cita.pacienteId.toString()}")
-                            Text("Detalles: ${cita.detalles}")
-                            Text("Conclusiones: ${cita.conclusiones}")
+            if (citasDelMedico.isEmpty()) {
+                Text("Este médico no tiene citas registradas.")
+            } else {
+                LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    items(citasDelMedico) { cita ->
+                        val paciente = pacientes.find { it.id == cita.idPaciente }
+
+                        Card(modifier = Modifier.fillMaxWidth()) {
+                            Column(modifier = Modifier.padding(16.dp)) {
+                                Text("Cita ID: ${cita.id}")
+                                Text("Fecha: ${cita.fecha}")
+                                Text("Paciente: ${paciente?.nombre ?: cita.idPaciente.toString()}")
+                                Text("Detalles: ${cita.detalle}")
+                                Text("Conclusiones: ${cita.conclusion}")
+                            }
                         }
                     }
                 }

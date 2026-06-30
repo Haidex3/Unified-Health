@@ -1,43 +1,48 @@
-package com.develop.myapplication.ui.screens.medico
+package com.develop.myapplication.ui.screens.paciente
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.develop.myapplication.ui.model.components.CitaViewModel
-import com.develop.myapplication.ui.components.PacienteViewModel
+import com.develop.myapplication.ui.viewmodel.CitaFormViewModel
+import com.develop.myapplication.ui.viewmodel.HorarioHoraFormViewModel
+import com.develop.myapplication.ui.viewmodel.MedicoViewModel
+import com.develop.myapplication.ui.viewmodel.PacienteViewModel
 
 @Composable
 fun HistorialPacienteScreen(
     navController: NavHostController? = null,
     pacienteIdInicial: Int = 0,
-    citaViewModel: CitaViewModel = hiltViewModel(),
-    pacienteViewModel: PacienteViewModel = hiltViewModel()
+    citaViewModel: CitaFormViewModel = hiltViewModel(),
+    pacienteViewModel: PacienteViewModel = hiltViewModel(),
+    horarioHoraViewModel: HorarioHoraFormViewModel = hiltViewModel(),
+    medicoViewModel: MedicoViewModel = hiltViewModel()
 ) {
     val citas by citaViewModel.citas.collectAsState()
     val pacientes by pacienteViewModel.pacientes.collectAsState()
+    val horarios by horarioHoraViewModel.horarios.collectAsState()
+    val medicos by medicoViewModel.medicos.collectAsState()
 
     var pacienteIdTexto by remember {
         mutableStateOf(
@@ -53,7 +58,7 @@ fun HistorialPacienteScreen(
 
     val historialPaciente = if (pacienteId != null) {
         citas.filter { cita ->
-            cita.pacienteId == pacienteId
+            cita.idPaciente == pacienteId
         }
     } else {
         emptyList()
@@ -61,6 +66,9 @@ fun HistorialPacienteScreen(
 
     LaunchedEffect(Unit) {
         pacienteViewModel.actualizarDatos()
+        citaViewModel.actualizarDatos()
+        horarioHoraViewModel.actualizarDatos()
+        medicoViewModel.actualizarDatos()
     }
 
     Scaffold { innerPadding ->
@@ -81,7 +89,7 @@ fun HistorialPacienteScreen(
                 onValueChange = { pacienteIdTexto = it },
                 label = { Text("ID del paciente") },
                 modifier = Modifier.fillMaxWidth(),
-                keyboardOptions = KeyboardOptions(
+                keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
                     keyboardType = KeyboardType.Number
                 )
             )
@@ -89,6 +97,9 @@ fun HistorialPacienteScreen(
             Button(
                 onClick = {
                     pacienteViewModel.actualizarDatos()
+                    citaViewModel.actualizarDatos()
+                    horarioHoraViewModel.actualizarDatos()
+                    medicoViewModel.actualizarDatos()
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -109,7 +120,7 @@ fun HistorialPacienteScreen(
                             verticalArrangement = Arrangement.spacedBy(4.dp)
                         ) {
                             Text("Paciente: ${pacienteEncontrado.nombre}")
-                            Text("RUT: ${pacienteEncontrado.RUT}")
+                            Text("RUT: ${pacienteEncontrado.rut}")
                             Text("Correo: ${pacienteEncontrado.correo}")
                             Text("Celular: ${pacienteEncontrado.celular}")
                             Text("Sexo: ${pacienteEncontrado.sexo}")
@@ -131,6 +142,8 @@ fun HistorialPacienteScreen(
                         verticalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
                         items(historialPaciente) { cita ->
+                            val medico = horario?.let { h -> medicos.find { it.id == h.idMedico } }
+
                             Card(
                                 modifier = Modifier.fillMaxWidth()
                             ) {
@@ -140,10 +153,9 @@ fun HistorialPacienteScreen(
                                 ) {
                                     Text("Cita ID: ${cita.id}")
                                     Text("Fecha: ${cita.fecha}")
-                                    Text("Hora: ${cita.hora ?: "Sin hora registrada"}")
-                                    Text("Médico ID: ${cita.medicoId ?: "Sin médico"}")
-                                    Text("Detalles: ${cita.detalles}")
-                                    Text("Conclusiones: ${cita.conclusiones}")
+                                    Text("Médico: ${medico?.nombre ?: "Sin médico"}")
+                                    Text("Detalles: ${cita.detalle}")
+                                    Text("Conclusiones: ${cita.conclusion}")
                                 }
                             }
                         }
