@@ -16,6 +16,7 @@ import com.develop.myapplication.ui.screens.hospital.CrearPacienteScreen
 import com.develop.myapplication.ui.screens.hospital.EliminarHospitalScreen
 import com.develop.myapplication.ui.screens.hospital.HospitalScreen
 import com.develop.myapplication.ui.screens.hospital.VerHospitalesScreen
+import com.develop.myapplication.ui.screens.medico.AgregarHorasScreen
 import com.develop.myapplication.ui.screens.medico.BuscarPacienteScreen
 import com.develop.myapplication.ui.screens.medico.CrearMedicoScreen
 import com.develop.myapplication.ui.screens.medico.EliminarMedicoScreen
@@ -57,6 +58,8 @@ object VerMedico
 object EliminarMedico
 @Serializable
 object VerPacienteMedico
+@Serializable
+object AgregarHora
 //Paciente ------------------------------------------------------------
 @Serializable
 object CrearPaciente
@@ -105,9 +108,10 @@ fun Navigation(){
         composable<VerPacienteMedico> {
             BuscarPacienteScreen()
         }
-        // composable<VerCitasMedico> {
-        //    VerCitasMedicoScreen(navController = navController)
-       // }
+         composable<AgregarHora> {
+             AgregarHorasScreen(navController = navController)
+         }
+
 
 
         //Pantallas de Paciente ----------------------------------------------------

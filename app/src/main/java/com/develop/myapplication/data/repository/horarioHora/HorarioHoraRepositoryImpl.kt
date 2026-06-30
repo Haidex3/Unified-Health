@@ -68,8 +68,7 @@ fun HorarioHoraEntity.toDomain() = HorarioHora(
     hora = this.hora?:"Sin hora",
     disponible = this.disponible?:false,
     fecha = this.fecha?:"Sin fecha",
-    idMedico = this.idMedico?: -1,
-    idCita = this.idCita?:-1
+    idMedico = this.idMedico?: -1
 )
 
 fun HorarioHora.toEntity() = HorarioHoraEntity(
@@ -77,8 +76,7 @@ fun HorarioHora.toEntity() = HorarioHoraEntity(
     hora = this.hora,
     disponible = this.disponible,
     fecha = this.fecha,
-    idMedico = this.idMedico,
-    idCita = this.idCita
+    idMedico = this.idMedico
 )
 
 fun HorarioHora.toDto(): HorarioHoraDto {
@@ -87,8 +85,7 @@ fun HorarioHora.toDto(): HorarioHoraDto {
         hora = this.hora,
         disponible = this.disponible,
         fecha = this.fecha,
-        idMedico = this.idMedico,
-        idCita = this.idCita
+        idMedico = this.idMedico
     )
 }
 
@@ -97,8 +94,7 @@ fun HorarioHora.toCreateDto(): HorarioHoraCreateDto {
         hora = this.hora,
         disponible = this.disponible,
         fecha = this.fecha,
-        idMedico = this.idMedico,
-        idCita  = this.idCita
+        idMedico = this.idMedico
     )
 }
 
@@ -109,8 +105,7 @@ fun HorarioHoraDto.toEntity(): HorarioHoraEntity {
         hora = this.hora,
         disponible = this.disponible,
         fecha = this.fecha,
-        idMedico = this.idMedico,
-        idCita = this.idCita
+        idMedico = this.idMedico
     )
 }
 

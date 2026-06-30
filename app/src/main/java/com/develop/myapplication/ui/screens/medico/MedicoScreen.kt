@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.develop.myapplication.ui.navigation.AgregarHora
 import com.develop.myapplication.ui.navigation.CrearCitaMedico
 import com.develop.myapplication.ui.navigation.EliminarMedico
 import com.develop.myapplication.ui.navigation.VerPacienteMedico
@@ -40,6 +41,16 @@ fun MedicoScreen(navController: NavHostController){
                 Text("Buscar Paciente")
             }
             Spacer(Modifier.height(50.dp))
+
+            Button(
+                onClick = {navController.navigate(AgregarHora)},
+                modifier = Modifier.fillMaxWidth().height(100.dp),
+                shape = RectangleShape
+            ){
+                Text("Agregr Hora")
+            }
+            Spacer(Modifier.height(50.dp))
+
             Button(
                 onClick = {navController.navigate(CrearCitaMedico)},
                 modifier = Modifier.fillMaxWidth().height(100.dp),
