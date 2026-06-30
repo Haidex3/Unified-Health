@@ -8,6 +8,8 @@ import com.develop.myapplication.data.repository.hospital.HospitalRepository
 import com.develop.myapplication.data.repository.hospital.HospitalRepositoryImpl
 import com.develop.myapplication.data.repository.medico.MedicoRepository
 import com.develop.myapplication.data.repository.medico.MedicoRepositoryImpl
+import com.develop.myapplication.data.repository.auth.AuthRepository
+import com.develop.myapplication.data.repository.auth.AuthRepositoryImpl
 import com.develop.myapplication.data.repository.paciente.PacienteRepository
 import com.develop.myapplication.data.repository.paciente.PacienteRepositoryImpl
 import dagger.Binds
@@ -49,4 +51,9 @@ abstract class RepositoryModule {
         citaRepositoryImpl: CitaRepositoryImpl
     ): CitaRepository
 
+    @Binds
+    @Singleton
+    abstract fun bindAuthRepository(
+        authRepositoryImpl: AuthRepositoryImpl
+    ): AuthRepository
 }

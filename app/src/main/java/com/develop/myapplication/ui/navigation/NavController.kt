@@ -8,8 +8,7 @@ import androidx.navigation.toRoute
 import com.develop.myapplication.ui.model.Medico
 import kotlinx.serialization.Serializable
 import com.develop.myapplication.ui.screens.HomeScreen
-import com.develop.myapplication.ui.screens.InicioSesionScreen
-import com.develop.myapplication.ui.screens.admin.AdminScreen
+import com.develop.myapplication.ui.screens.login.InicioSesionScreen
 import com.develop.myapplication.ui.screens.hospital.CrearCitaMedicoScreen
 import com.develop.myapplication.ui.screens.hospital.CrearHospitalScreen
 import com.develop.myapplication.ui.screens.hospital.CrearPacienteScreen
@@ -72,7 +71,7 @@ object VerPaciente
 
 //---------------------------------------------------------------------
 @Serializable
-data class InicioSesion(val tipo_sesion: String)
+object InicioSesion
 @Serializable
 object CrearCitaMedico
 
@@ -142,7 +141,7 @@ fun Navigation(){
 
         composable<InicioSesion> {backstackEntry->
             val args = backstackEntry.toRoute<InicioSesion>()
-            InicioSesionScreen(navController = navController,   tipo_sesion = args.tipo_sesion)
+            InicioSesionScreen(navController = navController)
         }
         composable<CrearCitaMedico>{
             CrearCitaMedicoScreen(navController=navController)
