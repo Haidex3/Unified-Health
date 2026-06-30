@@ -18,8 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.develop.myapplication.ui.viewmodel.HospitalFormViewModel
-import com.develop.myapplication.ui.navigation.VerHospitales
 import com.develop.myapplication.ui.navigation.VerMedico
 import com.develop.myapplication.ui.viewmodel.MedicoViewModel
 import kotlinx.coroutines.launch
@@ -52,7 +50,7 @@ fun CrearMedicoScreen(
             TextField(
                 value = formViewModel.nombre,
                 onValueChange = { formViewModel.nombre = it },
-                label = { Text("Nombre Hospital") }
+                label = { Text("Nombre Medico") }
             )
             Spacer(modifier = Modifier.height(8.dp))
             TextField(
@@ -91,7 +89,7 @@ fun CrearMedicoScreen(
                     }
                 },
             ) {
-                Text("Crear Hospital")
+                Text("Crear Medioc")
             }
         }
     }

@@ -6,6 +6,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.develop.myapplication.data.repository.cita.CitaRepository
+import com.develop.myapplication.data.repository.medico.MedicoRepository
+import com.develop.myapplication.data.repository.paciente.PacienteRepository
 import com.develop.myapplication.ui.model.Cita
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -17,12 +19,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CitaFormViewModel @Inject constructor(
-    private val citaRepository: CitaRepository
+    private val citaRepository: CitaRepository,
+    private val medicoRepository: MedicoRepository
 ) : ViewModel() {
-    var fecha       by mutableStateOf("")
-    var detalle     by mutableStateOf("")
-    var conclusion  by mutableStateOf("")
-    var idPaciente  by mutableStateOf("")
+    var fecha           by mutableStateOf("")
+    var detalle         by mutableStateOf("")
+    var conclusiones    by mutableStateOf("")
+    var idHorarioHora   by mutableStateOf("")
+    var idPaciente        by mutableStateOf("")
+
 
     val citas: StateFlow<List<Cita>> = citaRepository.obtenerTodosCitas()
         .stateIn(
@@ -45,18 +50,23 @@ class CitaFormViewModel @Inject constructor(
                 id = 0,
                 fecha = fecha,
                 detalle = detalle,
-                conclusion = conclusion,
+                conclusiones = conclusiones,
+                idHorarioHora = idHorarioHora.toInt(),
                 idPaciente = idPaciente.toInt()
+
             )
             citaRepository.insertarCita(nuevaCita)
             resetForm()
         }
     }
 
+
     private fun resetForm() {
         fecha = ""
+        fecha = ""
         detalle = ""
-        conclusion = ""
+        conclusiones= ""
+        idHorarioHora = ""
         idPaciente = ""
     }
 }

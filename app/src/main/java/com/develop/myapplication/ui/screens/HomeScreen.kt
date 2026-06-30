@@ -16,9 +16,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.develop.myapplication.ui.navigation.HospitalPantalla
+import com.develop.myapplication.ui.navigation.AdminPantalla
 import com.develop.myapplication.ui.navigation.MedicoPantalla
 import com.develop.myapplication.ui.navigation.PacientePantalla
+import com.develop.myapplication.ui.screens.admin.AdminScreen
 
 @Composable
 fun HomeScreen(navController: NavHostController){
@@ -31,7 +32,7 @@ fun HomeScreen(navController: NavHostController){
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(Modifier.height(50.dp))
+            Spacer(Modifier.height(100.dp))
             Button(
                 onClick = {navController.navigate(MedicoPantalla)},
                 modifier = Modifier.fillMaxWidth().height(100.dp),
@@ -39,7 +40,7 @@ fun HomeScreen(navController: NavHostController){
             ){
                 Text("Medico")
             }
-            Spacer(Modifier.height(50.dp))
+            Spacer(Modifier.height(100.dp))
             Button(
                 onClick = {navController.navigate(PacientePantalla)},
                 modifier = Modifier.fillMaxWidth().height(100.dp),
@@ -47,12 +48,13 @@ fun HomeScreen(navController: NavHostController){
             ){
                 Text("Paciente")
             }
+            Spacer(Modifier.height(100.dp))
             Button(
-                onClick = {navController.navigate(HospitalPantalla)},
+                onClick = {navController.navigate(AdminPantalla)},
                 modifier = Modifier.fillMaxWidth().height(100.dp),
                 shape = RectangleShape
             ){
-                Text("Hospital")
+                Text("Admin")
             }
         }
     }

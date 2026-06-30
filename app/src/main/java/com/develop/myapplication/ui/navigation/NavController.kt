@@ -9,17 +9,22 @@ import com.develop.myapplication.ui.model.Medico
 import kotlinx.serialization.Serializable
 import com.develop.myapplication.ui.screens.HomeScreen
 import com.develop.myapplication.ui.screens.InicioSesionScreen
+import com.develop.myapplication.ui.screens.admin.AdminScreen
 import com.develop.myapplication.ui.screens.hospital.CrearCitaMedicoScreen
 import com.develop.myapplication.ui.screens.hospital.CrearHospitalScreen
 import com.develop.myapplication.ui.screens.hospital.CrearPacienteScreen
 import com.develop.myapplication.ui.screens.hospital.EliminarHospitalScreen
 import com.develop.myapplication.ui.screens.hospital.HospitalScreen
 import com.develop.myapplication.ui.screens.hospital.VerHospitalesScreen
+import com.develop.myapplication.ui.screens.medico.BuscarPacienteScreen
 import com.develop.myapplication.ui.screens.medico.CrearMedicoScreen
+import com.develop.myapplication.ui.screens.medico.EliminarMedicoScreen
 import com.develop.myapplication.ui.screens.medico.MedicoScreen
 import com.develop.myapplication.ui.screens.medico.VerMedicoScreen
+import com.develop.myapplication.ui.screens.paciente.EliminarPacienteScreen
 //import com.develop.myapplication.ui.screens.medico.VerCitasMedicoScreen
 import com.develop.myapplication.ui.screens.paciente.PacienteScreen
+import com.develop.myapplication.ui.screens.paciente.VerPacienteScreen
 
 @Serializable
 object Home
@@ -28,11 +33,11 @@ object MedicoPantalla
 @Serializable
 object PacientePantalla
 @Serializable
-object HospitalPantalla
+object AdminPantalla
 
 
 
-//Pantallas Hospital
+//Pantallas Hospital------------------------------------------------------------
 @Serializable
 object CrearHospital
 @Serializable
@@ -41,20 +46,33 @@ object VerHospitales
 object EliminarHospital
 
 
-//Pantallas Medico
+//Pantallas Medico------------------------------------------------------------
 @Serializable
 object VerCitasMedico
 @Serializable
 object CrearMedico
 @Serializable
 object VerMedico
+@Serializable
+object EliminarMedico
+@Serializable
+object VerPacienteMedico
+//Paciente ------------------------------------------------------------
+@Serializable
+object CrearPaciente
+@Serializable
+object EliminarPaciente
+@Serializable
+object VerPaciente
 
+
+
+//---------------------------------------------------------------------
 @Serializable
 data class InicioSesion(val tipo_sesion: String)
 @Serializable
 object CrearCitaMedico
-@Serializable
-object CrearPaciente
+
 @Composable
 fun Navigation(){
     val navController = rememberNavController()
@@ -70,25 +88,42 @@ fun Navigation(){
         composable<PacientePantalla> {
             PacienteScreen(navController = navController)
         }
-        composable<HospitalPantalla> {
-            HospitalScreen(navController = navController)
+        composable<AdminPantalla> {
+            AdminScreen(navController = navController)
         }
 
-        //Pantallas de Medico
+        //Pantallas de Medico----------------------------------------------------
         composable<CrearMedico> {
             CrearMedicoScreen(navController = navController)
         }
         composable<VerMedico>{
             VerMedicoScreen()
         }
+        composable<EliminarMedico> {
+            EliminarMedicoScreen(navController = navController)
+        }
+        composable<VerPacienteMedico> {
+            BuscarPacienteScreen()
+        }
         // composable<VerCitasMedico> {
         //    VerCitasMedicoScreen(navController = navController)
        // }
 
 
-        //Pantallas de Paciente
+        //Pantallas de Paciente ----------------------------------------------------
+        composable<CrearPaciente> {
+            CrearPacienteScreen(navController=navController)
+        }
+        composable<EliminarPaciente> {
+            EliminarPacienteScreen(navController=navController)
+        }
+        composable<VerPaciente> {
+            VerPacienteScreen()
+        }
 
-        // Pantallas de Hospital
+
+
+        // Pantallas de Hospital----------------------------------------------------
         composable<CrearHospital>{
             CrearHospitalScreen(navController = navController)
         }
@@ -108,10 +143,7 @@ fun Navigation(){
         composable<CrearCitaMedico>{
             CrearCitaMedicoScreen(navController=navController)
         }
-        composable<CrearPaciente> {backstackEntry->
-            val args = backstackEntry.toRoute<Medico>()
-            CrearPacienteScreen(navController = navController, nombre = args.nombre)
-        }
+
     }
 }
 

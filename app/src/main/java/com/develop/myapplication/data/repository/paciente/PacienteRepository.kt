@@ -8,7 +8,7 @@ interface PacienteRepository {
 
     suspend fun obtenerPorId(id: Int): Paciente?
 
-    suspend fun buscarPorNombre(nombreBusqeda: String): Paciente?
+    suspend fun buscarPorNombre(nombreBusqeda: String): Paciente
 
     suspend fun insertarPaciente(paciente: Paciente)
 
@@ -18,5 +18,5 @@ interface PacienteRepository {
 
     suspend fun sincronizarPacientes()
 
-    fun buscarPorRut(rut: Int):Paciente
+    suspend fun buscarPorRut(rut: Int):Paciente
 }

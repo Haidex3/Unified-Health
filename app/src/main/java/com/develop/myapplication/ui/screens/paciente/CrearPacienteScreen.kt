@@ -17,18 +17,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.develop.myapplication.ui.model.Hospital
-import com.develop.myapplication.ui.viewmodel.HospitalFormViewModel
-import com.develop.myapplication.ui.navigation.VerHospitales
 import com.develop.myapplication.ui.viewmodel.PacienteViewModel
 import kotlinx.coroutines.launch
 
 @Composable
 fun CrearPacienteScreen(
     formViewModel: PacienteViewModel = hiltViewModel(),
-    formViewModelHospital: HospitalFormViewModel = hiltViewModel(),
     navController: NavHostController,
-    nombre:String
 ) {
     val scope = rememberCoroutineScope()
     Scaffold(
@@ -82,7 +77,12 @@ fun CrearPacienteScreen(
                 label = { Text("Celular Paciente") }
             )
             Spacer(modifier = Modifier.height(8.dp))
-
+            TextField(
+                value = formViewModel.hospital,
+                onValueChange = {formViewModel.hospital = it},
+                label = {Text("Nombre Hospital")}
+            )
+            Spacer(modifier = Modifier.height(8.dp))
 
             Button(
                 onClick = {
@@ -91,7 +91,7 @@ fun CrearPacienteScreen(
                     }
                 },
             ) {
-                Text("Crear Hospital")
+                Text("Crear Paciente")
             }
         }
     }

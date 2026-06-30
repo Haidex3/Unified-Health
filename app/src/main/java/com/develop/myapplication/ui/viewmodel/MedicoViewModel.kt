@@ -18,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MedicoViewModel @Inject constructor(
     private val medicoRepository: MedicoRepository,
-    private val hospitalRepositoryImpl: HospitalRepository
+    private val hospitalRepository: HospitalRepository
 ) : ViewModel() {
     var nombre      by mutableStateOf("")
     var correo      by mutableStateOf("")
@@ -51,11 +51,16 @@ class MedicoViewModel @Inject constructor(
                 celular = celular,
                 password = password,
                 rut = rut.toInt(),
-                idHospital = hospitalRepositoryImpl.buscarPorNombre(hospital).id
+                idHospital = hospitalRepository.buscarPorNombre(hospital).id
             )
             medicoRepository.insertarMedicoBackend(nuevoMedico)
             resetForm()
         }
+    }
+    suspend fun eliminarMedico(nombreMedico: String){
+        val medicoBorrar: Medico = medicoRepository.buscarPorNombre(nombreMedico)
+        medicoRepository.borrarMedico(medicoBorrar)
+        nombre = ""
     }
     private fun resetForm() {
         nombre   = ""

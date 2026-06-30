@@ -9,10 +9,10 @@ data class PacienteEntity(
     @PrimaryKey val id: Int,
     @ColumnInfo(name = "nombre") val nombre: String?,
     @ColumnInfo(name = "correo") val correo: String?,
-    @ColumnInfo val rut: Int?,
+    @ColumnInfo(name = "RUT") val rut: Int?,
     @ColumnInfo(name = "sexo") val sexo: String?,
     @ColumnInfo(name = "celular") val celular: String?,
     @ColumnInfo(name = "password") val password: String?,
 
-    @ColumnInfo val idHospital: Int
+    @ColumnInfo(name = "hospital_id") val idHospital: Int
 )

@@ -16,11 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.develop.myapplication.ui.navigation.CrearHospital
-import com.develop.myapplication.ui.navigation.CrearMedico
-import com.develop.myapplication.ui.navigation.EliminarHospital
-import com.develop.myapplication.ui.navigation.VerHospitales
-import com.develop.myapplication.ui.navigation.VerMedico
+import com.develop.myapplication.ui.navigation.CrearCitaMedico
+import com.develop.myapplication.ui.navigation.EliminarMedico
+import com.develop.myapplication.ui.navigation.VerPacienteMedico
 
 @Composable
 fun MedicoScreen(navController: NavHostController){
@@ -35,26 +33,19 @@ fun MedicoScreen(navController: NavHostController){
         ) {
             Spacer(Modifier.height(50.dp))
             Button(
-                onClick = {navController.navigate(VerMedico)},
+                onClick = {navController.navigate(VerPacienteMedico)},
                 modifier = Modifier.fillMaxWidth().height(100.dp),
                 shape = RectangleShape
             ){
-                Text("Ver Medicos")
+                Text("Buscar Paciente")
             }
             Spacer(Modifier.height(50.dp))
             Button(
-                onClick = {navController.navigate(CrearMedico)},
+                onClick = {navController.navigate(CrearCitaMedico)},
                 modifier = Modifier.fillMaxWidth().height(100.dp),
                 shape = RectangleShape
             ){
-                Text("Crear Medico")
-            }
-            Button(
-                onClick = {navController.navigate(EliminarHospital)},
-                modifier = Modifier.fillMaxWidth().height(100.dp),
-                shape = RectangleShape
-            ){
-                Text("Eliminar Medico")
+                Text("Agendar Cita")
             }
         }
     }

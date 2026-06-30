@@ -57,10 +57,7 @@ class HospitalFormViewModel @Inject constructor(
         hospitalRepository.borrarHospital(hospitalBorar)
         nombre = ""
     }
-  /*  fun buscarIdPorNombre(nombre: String): String{
-        val nombreBusqueda =  hospitalRepository.buscarIdPorNombre(nombre)
-        return nombreBusqueda
-    }*/
+
     private fun resetForm() {
         nombre = ""
         correo = ""
