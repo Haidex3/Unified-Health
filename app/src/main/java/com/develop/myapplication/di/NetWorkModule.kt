@@ -5,6 +5,7 @@ import com.develop.myapplication.data.remote.service.HorarioHoraApiService
 import com.develop.myapplication.data.remote.service.HospitalApiService
 import com.develop.myapplication.data.remote.service.MedicoApiService
 import com.develop.myapplication.data.remote.service.PacienteApiService
+import com.develop.myapplication.data.remote.service.AuthApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,7 +21,7 @@ object NetworkModule {
     @Singleton
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:8000/api/")
+            .baseUrl("http://192.168.4.211:8000/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
@@ -48,5 +49,13 @@ object NetworkModule {
     @Provides
     fun provideCitaApiService(retrofit: Retrofit): CitaApiService {
         return retrofit.create(CitaApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAuthApiService(
+        retrofit: Retrofit
+    ): AuthApiService {
+        return retrofit.create(AuthApiService::class.java)
     }
 }
