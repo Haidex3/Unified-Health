@@ -5,15 +5,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.develop.myapplication.data.repository.hospital.HospitalRepository
+import com.develop.myapplication.data.repository.medico.MedicoRepository
 import com.develop.myapplication.data.repository.paciente.PacienteRepository
-import com.develop.myapplication.ui.model.Medico
 import com.develop.myapplication.ui.model.Paciente
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.WhileSubscribed
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,7 +19,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PacienteViewModel @Inject constructor(
-    private val pacienteRepository: PacienteRepository
+    private val pacienteRepository: PacienteRepository,
+    private val hospitalRepository: HospitalRepository
 ) : ViewModel() {
     var nombre     by mutableStateOf("")
     var correo     by mutableStateOf("")
@@ -30,6 +29,7 @@ class PacienteViewModel @Inject constructor(
     var celular    by mutableStateOf("")
     var password   by mutableStateOf("")
     var idHospital by mutableStateOf("")
+    var hospital   by mutableStateOf("")
 
     val pacientes: StateFlow<List<Paciente>> = pacienteRepository.obtenerTodosPacientes()
         .stateIn(
@@ -45,8 +45,7 @@ class PacienteViewModel @Inject constructor(
             pacienteRepository.sincronizarPacientes()
         }
     }
-    fun insertarPaciente() {
-
+     fun insertarPaciente() {
         viewModelScope.launch {
             val nuevoPaciente = Paciente(
                 id         = 0,
@@ -56,38 +55,34 @@ class PacienteViewModel @Inject constructor(
                 correo     = correo,
                 password   = password,
                 celular    = celular,
-                idHospital = idHospital.toInt()
+                idHospital = hospitalRepository.buscarPorNombre(hospital).id
             )
-            pacienteRepository.insertarPaciente(nuevoPaciente)
+            pacienteRepository.insertarPacienteBackend(nuevoPaciente)
             resetForm()
         }
+    }
+    suspend fun eliminarPaciente(nombrePaciente: String){
+        val pacienteBorra: Paciente = pacienteRepository.buscarPorNombre(nombrePaciente)
+        pacienteRepository.borrarPaciente(pacienteBorra)
+        nombre = ""
+    }
+    suspend fun buscarPaciente(){
+        nombre = ""
+        correo = ""
+        val pacienteBusqueda:Paciente = pacienteRepository.buscarPorRut(rut.toInt())
+        nombre = pacienteBusqueda.nombre
+        correo = pacienteBusqueda.correo
+
     }
 
-    var searchJob: Job? = null
-    fun onRutChange(){
-        searchJob?.cancel()
-        if(rut.length > 8){
-            searchJob = viewModelScope.launch {
-                delay(500)
-                val paciente = pacienteRepository.buscarPorRut(rut.toInt())
-                    nombre      = paciente.nombre
-                    sexo        = paciente.sexo
-                    correo      = paciente.correo
-                    password    = paciente.password
-                    celular     = paciente.celular
-                    idHospital  = paciente.idHospital.toString()
-            }
-        }
-        else{
-            resetForm()
-        }
-    }
     private fun resetForm() {
         nombre   = ""
         sexo     = ""
         correo   = ""
         password = ""
         celular  = ""
+        rut        = ""
+        hospital   = ""
         idHospital = ""
     }
 }

@@ -7,6 +7,7 @@ import com.develop.myapplication.data.local.entity.PacienteEntity
 import com.develop.myapplication.data.remote.dto.PacienteCreateDto
 import com.develop.myapplication.data.remote.dto.PacienteDto
 import com.develop.myapplication.data.remote.service.PacienteApiService
+import com.develop.myapplication.data.repository.hospital.toEntity
 import com.develop.myapplication.ui.model.Paciente
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
@@ -25,8 +26,8 @@ class PacienteRepositoryImpl @Inject constructor(
     override suspend fun obtenerPorId(id: Int): Paciente? {
         return database.pacienteDao().obtenerPorId(id)?.toDomain()
     }
-    override suspend fun buscarPorNombre(nombreBusqeda: String): Paciente? {
-        return database.pacienteDao().buscarPorNombre(nombreBusqeda)?.toDomain()
+    override suspend fun buscarPorNombre(nombreBusqeda: String): Paciente {
+        return database.pacienteDao().buscarPorNombre(nombreBusqeda).toDomain()
     }
     override suspend fun insertarPacienteBackend(paciente: Paciente) {
         try {
@@ -37,7 +38,12 @@ class PacienteRepositoryImpl @Inject constructor(
         }
     }
     override suspend fun borrarPaciente(paciente: Paciente) {
-        return database.pacienteDao().borrar(paciente.toEntity())
+        try {
+            database.pacienteDao().borrar(paciente.toEntity())
+            apiService.deletePaciente(paciente.id)
+        }catch (e: Exception){
+            Log.e("HospitalRepository","Error al borrar el hospiradl desde la api"+e.message, e)
+        }
     }
     override suspend fun sincronizarPacientes() {
         try {
@@ -49,7 +55,7 @@ class PacienteRepositoryImpl @Inject constructor(
         }
 
     }
-    override fun buscarPorRut(rut: Int): Paciente {
+    override suspend fun buscarPorRut(rut: Int): Paciente {
         return database.pacienteDao().buscarPorRut(rut).toDomain()
     }
 }

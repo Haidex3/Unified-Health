@@ -54,7 +54,8 @@ fun CitaEntity.toDomain() = Cita(
     id = this.id,
     fecha = this.fecha?: "Sin Fecha",
     detalle = this.detalle?:"Sin detalle",
-    conclusion = this.conclusion?:"Sin conclucion",
+    conclusiones = this.conclusiones?:"Sin conclucion",
+    idHorarioHora = this.idHorarioHora?:0,
     idPaciente = this.idPaciente?:0
     )
 
@@ -62,7 +63,8 @@ fun Cita.toEntity() = CitaEntity(
     id = this.id,
     fecha = this.fecha,
     detalle = this.detalle,
-    conclusion = this.conclusion,
+    conclusiones = this.conclusiones,
+    idHorarioHora = idHorarioHora,
     idPaciente = this.idPaciente
 )
 
@@ -71,7 +73,8 @@ fun Cita.toDto(): CitaDto {
         id = this.id,
         fecha = this.fecha,
         detalle = this.detalle,
-        conclusion= this.conclusion,
+        conclusiones= this.conclusiones,
+        idHorarioHora = this.idHorarioHora,
         idPaciente = this.idPaciente
     )
 }
@@ -80,7 +83,8 @@ fun Cita.toCreateDto(): CitaCreateDto {
     return CitaCreateDto(
         fecha = this.fecha,
         detalle = this.detalle,
-        conclusion = this.conclusion,
+        conclusiones = this.conclusiones,
+        idHorarioHora = this.idHorarioHora,
         idPaciente = this.idPaciente
     )
 }
@@ -91,7 +95,8 @@ fun CitaDto.toEntity(): CitaEntity {
         id = this.id,
         fecha = this.fecha,
         detalle = this.detalle,
-        conclusion = this.conclusion,
+        conclusiones = this.conclusiones,
+        idHorarioHora = this.idHorarioHora,
         idPaciente = this.idPaciente
     )
 }

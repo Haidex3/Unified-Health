@@ -24,8 +24,8 @@ class MedicoRepositoryImpl @Inject constructor(
     override suspend fun obtenerPorId(id: Int): Medico? {
         return database.medicoDao().obtenerPorId(id)?.toDomain()
     }
-    override suspend fun buscarPorNombre(nombreBusqeda: String): Medico? {
-        return database.medicoDao().buscarPorNombre(nombreBusqeda)?.toDomain()
+    override suspend fun buscarPorNombre(nombreBusqeda: String): Medico {
+        return database.medicoDao().buscarPorNombre(nombreBusqeda).toDomain()
     }
     override suspend fun insertarMedicoBackend(medico: Medico) {
         try {
