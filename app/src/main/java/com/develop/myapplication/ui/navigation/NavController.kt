@@ -8,7 +8,7 @@ import androidx.navigation.toRoute
 import com.develop.myapplication.ui.model.Medico
 import kotlinx.serialization.Serializable
 import com.develop.myapplication.ui.screens.HomeScreen
-import com.develop.myapplication.ui.screens.InicioSesionScreen
+import com.develop.myapplication.ui.screens.login.InicioSesionScreen
 import com.develop.myapplication.ui.screens.hospital.CrearCitaMedicoScreen
 import com.develop.myapplication.ui.screens.hospital.CrearHospitalScreen
 import com.develop.myapplication.ui.screens.hospital.CrearPacienteScreen
