@@ -62,9 +62,7 @@ fun AgregarHorasScreen(
             )
             Spacer(modifier = Modifier.height(8.dp))
             DatePicker(state = state)
-            fun convertirLocalDate(millis: Long): LocalDate {
-                return Instant.ofEpochMilli(millis).atZone(ZoneId.systemDefault()).toLocalDate()
-            }
+
 
             formViewModel.fecha = state.selectedDateMillis.toString()
             Text(formViewModel.fecha)
