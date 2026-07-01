@@ -1,14 +1,10 @@
-package com.develop.myapplication.ui.screens.hospital
+package com.develop.myapplication.ui.screens.medico
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
-import androidx.compose.material3.Card
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -16,16 +12,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.develop.myapplication.ui.viewmodel.CitaFormViewModel
-import com.develop.myapplication.ui.viewmodel.PacienteViewModel
+import com.develop.myapplication.ui.viewmodel.MedicoViewModel
 import kotlinx.coroutines.launch
 
 @Composable
-fun CrearCitaMedicoScreen(
-    formViewModelCita: CitaFormViewModel = hiltViewModel(),
+fun EliminarMedicoScreen(
+    formViewModel: MedicoViewModel = hiltViewModel(),
     navController: NavHostController
 ) {
     val scope = rememberCoroutineScope()
@@ -39,17 +33,21 @@ fun CrearCitaMedicoScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            /*TextField(
-                value = formViewModelCita.rut,
-                onValueChange = { formViewModelCita.rut = it},
-                label = { Text("Rut Paciente") }
-            )
             TextField(
-                value = formViewModelPaciente.rutMedico,
-                onValueChange = { formViewModelPaciente.rutMedico}
-            )*/
+                value = formViewModel.nombre,
+                onValueChange = { formViewModel.nombre = it },
+                label = { Text("Nombre Medico") }
+            )
 
-
+            Button(
+                onClick = {
+                    scope.launch {
+                        formViewModel.eliminarMedico(formViewModel.nombre)
+                    }
+                },
+            ) {
+                Text("Eliminar Medico")
+            }
         }
     }
 }

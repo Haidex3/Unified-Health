@@ -8,7 +8,7 @@ interface MedicoRepository {
 
     suspend fun obtenerPorId(id: Int): Medico?
 
-    suspend fun buscarPorNombre(nombreBusqeda: String): Medico?
+    suspend fun buscarPorNombre(nombreBusqeda: String): Medico
 
     suspend fun insertarMedico(medico: Medico)
 

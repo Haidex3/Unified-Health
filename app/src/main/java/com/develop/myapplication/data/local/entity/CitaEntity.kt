@@ -10,9 +10,9 @@ import java.util.Date
 data class CitaEntity (
     @PrimaryKey val id: Int,
 
-    @ColumnInfo(name = "fecha") val fecha: String?,
-    @ColumnInfo(name = "detalles") val detalle: String?,
-    @ColumnInfo(name = "conclusion") val conclusion: String?,
-
-    @ColumnInfo(name = "idPaciente") val idPaciente:Int?
+    @ColumnInfo(name = "fecha")             val fecha: String?,
+    @ColumnInfo(name = "detalles")          val detalle: String?,
+    @ColumnInfo(name = "conclusiones")      val conclusiones: String?,
+    @ColumnInfo(name = "horario_hora_id")   val idHorarioHora: Int?,
+    @ColumnInfo(name = "paciente_id")       val idPaciente:Int?
 )

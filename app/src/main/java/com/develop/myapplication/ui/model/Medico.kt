@@ -1,6 +1,6 @@
 package com.develop.myapplication.ui.model
 data class Medico(
-    val id: Int? = null,
+    val id: Int,
 
     val nombre: String,
     val correo: String,

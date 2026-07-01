@@ -44,6 +44,6 @@ interface PacienteDao {
         insertarTodos(*pacientes.toTypedArray())
     }
     @Query("SELECT * FROM PacienteEntity WHERE rut = :rut")
-    fun buscarPorRut(rut: Int): PacienteEntity
+    suspend fun buscarPorRut(rut: Int): PacienteEntity
 
 }

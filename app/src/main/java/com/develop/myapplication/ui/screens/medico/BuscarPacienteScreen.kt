@@ -1,14 +1,13 @@
-package com.develop.myapplication.ui.screens.hospital
+package com.develop.myapplication.ui.screens.medico
+
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.material3.Button
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -18,15 +17,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
-import com.develop.myapplication.ui.viewmodel.CitaFormViewModel
 import com.develop.myapplication.ui.viewmodel.PacienteViewModel
 import kotlinx.coroutines.launch
 
 @Composable
-fun CrearCitaMedicoScreen(
-    formViewModelCita: CitaFormViewModel = hiltViewModel(),
-    navController: NavHostController
+fun BuscarPacienteScreen(
+    formViewModel: PacienteViewModel = hiltViewModel()
 ) {
     val scope = rememberCoroutineScope()
     Scaffold(
@@ -39,17 +35,35 @@ fun CrearCitaMedicoScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            /*TextField(
-                value = formViewModelCita.rut,
-                onValueChange = { formViewModelCita.rut = it},
+            TextField(
+                value = formViewModel.rut,
+                onValueChange = { formViewModel.rut = it},
                 label = { Text("Rut Paciente") }
             )
+            Spacer(modifier = Modifier.height(50.dp))
+            Button(
+                onClick = {scope.launch { formViewModel.buscarPaciente() }}
+            ){
+                Text("Buscar Paciente")
+            }
             TextField(
-                value = formViewModelPaciente.rutMedico,
-                onValueChange = { formViewModelPaciente.rutMedico}
-            )*/
-
-
+                value = formViewModel.nombre,
+                onValueChange = { formViewModel.nombre = it},
+                label = { Text("Nombre Paciente") },
+                readOnly = true
+            )
+            Spacer(modifier = Modifier.height(50.dp))
+            TextField(
+                value = formViewModel.correo,
+                onValueChange = { formViewModel.correo = it},
+                label = { Text("Correo Paciente") },
+                readOnly = true
+            )
+            Spacer(modifier = Modifier.height(50.dp))
         }
+
+
+
+
     }
 }
